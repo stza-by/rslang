@@ -3,7 +3,7 @@ import './App.css';
 import Main from './pages/main/Main';
 
 const App: React.FC = () => (
-  <div className="App">
+  <div className="text-3xl font-bold underline">
     Hello team
     <Main></Main>
   </div>
