@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
 import Main from './pages/main/Main';
+import Header from './components/header/Header';
 
 const App: React.FC = () => (
-  <div className="text-3xl font-bold underline">
-    Hello team
+  <div className="container">
+    <Header></Header>
     <Main></Main>
   </div>
 );
