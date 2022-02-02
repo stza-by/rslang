@@ -1,6 +1,6 @@
 module.exports = {
-  content: [    
-    "./src/**/*.{js,jsx,ts,tsx}",  
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {
@@ -8,7 +8,11 @@ module.exports = {
         'main-orange': '#C95039',
         'main-white': '#F7F7F7',
       },
+      fontFamily: {
+        'montserrat': ['Montserrat'],
+      }
     },
   },
+  variants: {},
   plugins: [],
 }
