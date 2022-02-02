@@ -1,11 +1,12 @@
-.main {
+.container {
  position: relative;
+ padding: 66px 0 90px;
 }
-.main::before {
+.container::before {
   content: '';
   position: absolute;
   right: 0;
-  bottom: 50px;
+  bottom: 77px;
   background-image: url('../../assets/Main.png');
   background-position: center;
   background-size: contain;
@@ -30,9 +31,6 @@
 .text__wrapper {
   max-width: 448px;
   margin-bottom: 54px;
-}
-.main {
-  padding: 66px 0;
 }
 button.btn {
   width: 250px;

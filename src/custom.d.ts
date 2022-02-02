@@ -3,3 +3,6 @@ declare module '*.module.css' {
   export default classes;
 }
 declare module 'react-markup';
+declare module '*.jpg';
+declare module '*.png';
+declare module '*.svg';
