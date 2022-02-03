@@ -8,3 +8,9 @@
 .btn:hover {
   background-color: #FED7AA;
 }
+@media (max-width: 768px) {
+  .btn {
+    width: 140px;
+    height: 45px;
+  }
+}
