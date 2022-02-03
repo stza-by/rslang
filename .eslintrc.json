@@ -3,12 +3,7 @@
     "browser": true,
     "es2021": true
   },
-  "extends": [
-    "plugin:react/recommended",
-    "airbnb",
-    "plugin:react-hooks/recommended",
-    "prettier"
-  ],
+  "extends": ["plugin:react/recommended", "airbnb", "plugin:react-hooks/recommended", "prettier"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "./tsconfig.json",
@@ -18,10 +13,7 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": [
-    "react",
-    "@typescript-eslint"
-  ],
+  "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "linebreak-style": 0,
     "import/extensions": [
@@ -37,10 +29,7 @@
     "react/jsx-filename-extension": [
       2,
       {
-        "extensions": [
-          ".ts",
-          ".tsx"
-        ]
+        "extensions": [".ts", ".tsx"]
       }
     ],
     "react/function-component-definition": [
@@ -64,10 +53,7 @@
     "import/prefer-default-export": "off",
     "no-unused-vars": "warn",
     "@typescript-eslint/no-unused-vars": "warn",
-    "object-curly-newline": [
-      "warn",
-      "always"
-    ],
+    "object-curly-newline": ["error", { "consistent": true }],
     "no-debugger": "off",
     "import/no-mutable-exports": "warn",
     "react/jsx-one-expression-per-line": "off",
@@ -78,10 +64,7 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [
-          ".ts",
-          ".tsx"
-        ]
+        "extensions": [".ts", ".tsx"]
       }
     }
   }
