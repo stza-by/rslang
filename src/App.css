@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Luxurious+Script&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,7 +9,11 @@
   box-sizing: border-box;
 }
 .container {
-  max-width: 1122px;
+  max-width: 1152px;
   margin: 0 auto;
   padding: 0 15px;
+}
+body {
+  background-color: #f7f7f7;
+  font-family: 'Montserrat', sans-serif;
 }
