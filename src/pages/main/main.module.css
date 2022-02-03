@@ -51,7 +51,7 @@ button.btn {
     position: absolute;
     content: '';
     height: 100%;
-    width: 100vw;
+    width: 100%;
     top: 0;
     left: 0;
     background-color: rgb(247, 247, 247, 0.87);
