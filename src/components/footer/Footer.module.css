@@ -1,6 +1,7 @@
 .container {
   font-size: 18px;
   font-weight: 500;
+  height: 100px;
 }
 .wrapper{
   display: flex;
