@@ -1,19 +1,25 @@
 import React from 'react';
-import style from './Header.module.css'
 import Button from '../button/Button';
+import style from './Header.module.css';
 
-const Header: React.FC = () => (
+interface IHeaderProps {
+  setActive: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Header: React.FC<IHeaderProps> = ({ setActive }) => (
   <header className={style.container}>
     <div className={style.wrapper}>
       <h1 className={style.title}>RSLang</h1>
-      <a href="/" className={style.link}>О команде</a>
+      <a href='/' className={style.link}>
+        О команде
+      </a>
     </div>
     <div className={style.wrapper}>
-      <Button>Войти</Button>
+      <Button onClick={() => setActive(true)}>Войти</Button>
       <button type='button' className={style.burger}>
-        <span></span>
-        <span></span>
-        <span></span>
+        <span />
+        <span />
+        <span />
       </button>
     </div>
   </header>

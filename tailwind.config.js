@@ -10,6 +10,9 @@ module.exports = {
       },
       fontFamily: {
         'montserrat': ['Montserrat'],
+      },
+      width: {
+        '112': '28rem',
       }
     },
   },
