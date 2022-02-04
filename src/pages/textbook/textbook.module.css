@@ -2,7 +2,6 @@
   position: relative;
   padding: 28px 0 48px;
   min-height: calc(100vh - 200px);
-  background-color: #FFFFFF;
   display: flex;
   flex-direction: column;
 }
