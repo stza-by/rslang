@@ -3,8 +3,7 @@ import './App.css';
 import Main from './pages/main/Main';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
-import PopupLogin from './components/popup/PopupLogin';
-import PopupSignIn from './components/popup/PopupSignUp';
+import Popup from './components/popup/Popup';
 
 const App: React.FC = () => {
   const [popupActive, setPopupActive] = useState(false);
@@ -17,11 +16,12 @@ const App: React.FC = () => {
         <Main />
       </div>
       <Footer />
-      {whatPopup === 'login' ? (
-        <PopupLogin active={popupActive} setActive={setPopupActive} setPopup={setWhatPopup} />
-      ) : (
-        <PopupSignIn active={popupActive} setActive={setPopupActive} setPopup={setWhatPopup} />
-      )}
+      <Popup
+        active={popupActive}
+        setActive={setPopupActive}
+        popup={whatPopup}
+        setPopup={setWhatPopup}
+      />
     </>
   );
 };
