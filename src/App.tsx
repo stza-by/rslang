@@ -10,7 +10,6 @@ const App: React.FC = () => (
     <Header></Header>
     <div className="container">
       <Main></Main>
-      <Card></Card>
     </div>
     <Footer></Footer>
   </>
