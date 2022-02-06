@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import style from './Card.module.css';
-import { getCards } from '../Api';
-import { ICard } from '../Types';
+import { getCards } from '../../services/dataAPI';
+import { ICard } from '../../services/types';
 
 const Card: any = () => {
   const [card, setCard] = useState<ICard[]>([]);

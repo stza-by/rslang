@@ -1,6 +1,7 @@
 .container {
- position: relative;
- padding: 66px 0 90px;
+  position: relative;
+  padding: 66px 0 90px;
+  min-height: calc(100vh - 200px);
 }
 .container::before {
   content: '';
@@ -40,6 +41,7 @@ button.btn {
   letter-spacing: 0px;
   margin-bottom: 144px;
 }
+
 @media (max-width: 768px) {
   .container {
     display: flex;

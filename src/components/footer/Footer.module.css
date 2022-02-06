@@ -1,6 +1,7 @@
 .container {
   font-size: 18px;
   font-weight: 500;
+  height: 100px;
 }
 .wrapper{
   display: flex;
@@ -29,12 +30,4 @@
   background-size: contain;
   width: 100px;
   height: 50px;
-}
-@media (max-width: 1024px) {
-  .developers {
-    flex-direction: column;
-  }
-  .developers a {
-    font-size: 18px;
-  }
 }
