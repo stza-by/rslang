@@ -1,22 +1,23 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Button from '../button/Button';
 import style from './Header.module.css';
 
 interface IHeaderProps {
+  active: boolean;
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
+  onSignInOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Header: React.FC<IHeaderProps> = ({ setActive }) => (
+const Header: React.FC<IHeaderProps> = ({setActive, active, onSignInOpen}) => (
   <header className={style.container}>
     <div className={style.wrapper}>
-      <h1 className={style.title}>RSLang</h1>
-      <a href='/' className={style.link}>
-        О команде
-      </a>
+      <Link to='/'><h1 className={style.title}>RSLang</h1></Link>
+      <a href="/" className={style.link}>О команде</a>
     </div>
     <div className={style.wrapper}>
-      <Button onClick={() => setActive(true)}>Войти</Button>
-      <button type='button' className={style.burger}>
+    <Button onClick={() => onSignInOpen(true)}>Войти</Button>
+      <button type='button' className={style.burger} onClick={() => setActive(!active)}>
         <span />
         <span />
         <span />
