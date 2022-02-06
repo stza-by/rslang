@@ -5,6 +5,7 @@ import Main from './pages/main/Main';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import Textbook from './pages/textbook/Textbook';
+import Card from './components/card/Card';
 
 const App: React.FC = () => (
   <>
