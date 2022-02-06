@@ -3,7 +3,12 @@ import { Link } from 'react-router-dom';
 import style from './Header.module.css'
 import Button from '../button/Button';
 
-const Header: React.FC = () => (
+interface IMenu{
+  active: boolean;
+  setActive: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Header: React.FC<IMenu> = ({setActive, active}) => (
   <header className={style.container}>
     <div className={style.wrapper}>
       <Link to='/'><h1 className={style.title}>RSLang</h1></Link>
@@ -11,7 +16,7 @@ const Header: React.FC = () => (
     </div>
     <div className={style.wrapper}>
       <Button>Войти</Button>
-      <button type='button' className={style.burger}>
+      <button type='button' className={style.burger} onClick={() => setActive(!active)}>
         <span></span>
         <span></span>
         <span></span>
