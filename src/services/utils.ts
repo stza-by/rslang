@@ -1,5 +1,7 @@
 import { IGetUSer, IUser } from './types';
 import { getUserAPI } from './dataAPI';
+import audioGame from '../assets/audioGame.webp';
+import sprintGame from '../assets/sprintGame.webp';
 
 export const getToken = (): string => {
   const storedToken = localStorage.getItem('userData');
@@ -22,3 +24,20 @@ export const checkUserAuthorization = async (): Promise<IUser | null> => {
   }
   return user;
 };
+
+export const getAllGames = () => [
+  {
+    id: 0,
+    name: 'Аудиовызов',
+    img: audioGame,
+    description: `После произнесения слова вам предлагается выбрать правильный вариант перевода из
+      предлагаемых пяти слов.`,
+  },
+  {
+    id: 1,
+    name: 'Спринт',
+    img: sprintGame,
+    description: `За отведённое время вам нужно сделать как можно больше правильных ответов, отвечая верно
+    или неверно переведено слово.`,
+  },
+];

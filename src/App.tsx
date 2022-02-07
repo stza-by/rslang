@@ -7,6 +7,9 @@ import Footer from './components/footer/Footer';
 import BurgerMenu from './components/burgerMenu/BurgerMenu';
 import Textbook from './pages/textbook/Textbook';
 import Popup from './components/popup/Popup';
+import MiniGames from './pages/games/MiniGames';
+import AudioGame from './pages/games/AudioGame';
+import SprintGame from './pages/games/SprintGame';
 
 const App: React.FC = () => {
   const [burgerMenuActive, setBurgerMenu] = useState(false);
@@ -16,10 +19,13 @@ const App: React.FC = () => {
   return (
     <>
       <Header active={burgerMenuActive} setActive={setBurgerMenu} onSignInOpen={setPopupActive} />
-      <div className="container">
+      <div className='container'>
         <Routes>
           <Route path='/' element={<Main />} />
           <Route path='/textbook' element={<Textbook />} />
+          <Route path='/games' element={<MiniGames />} />
+          <Route path='/games/audio-game' element={<AudioGame />} />
+          <Route path='/games/sprint' element={<SprintGame />} />
         </Routes>
       </div>
       <Footer />
@@ -30,8 +36,8 @@ const App: React.FC = () => {
         popup={whatPopup}
         setPopup={setWhatPopup}
       />
-  </>
-  )
+    </>
+  );
 };
 
 export default App;
