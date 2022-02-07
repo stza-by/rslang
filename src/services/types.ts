@@ -44,5 +44,6 @@ export interface IGameProps {
     name: string;
     img: string;
     description: string;
+    rout: string;
   };
 }

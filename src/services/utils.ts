@@ -32,6 +32,7 @@ export const getAllGames = () => [
     img: audioGame,
     description: `После произнесения слова вам предлагается выбрать правильный вариант перевода из
       предлагаемых пяти слов.`,
+    rout: 'audio-game',
   },
   {
     id: 1,
@@ -39,5 +40,6 @@ export const getAllGames = () => [
     img: sprintGame,
     description: `За отведённое время вам нужно сделать как можно больше правильных ответов, отвечая верно
     или неверно переведено слово.`,
+    rout: 'sprint',
   },
 ];
