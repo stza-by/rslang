@@ -9,14 +9,13 @@ interface IHeaderProps {
   onSignInOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Header: React.FC<IHeaderProps> = ({setActive, active, onSignInOpen}) => (
+const Header: React.FC<IHeaderProps> = ({ setActive, active, onSignInOpen }) => (
   <header className={style.container}>
     <div className={style.wrapper}>
       <Link to='/'><h1 className={style.title}>RSLang</h1></Link>
-      <a href="/" className={style.link}>О команде</a>
     </div>
     <div className={style.wrapper}>
-    <Button onClick={() => onSignInOpen(true)}>Войти</Button>
+      <Button classExtra='btn' onClick={() => onSignInOpen(true)}>Войти</Button>
       <button type='button' className={style.burger} onClick={() => setActive(!active)}>
         <span />
         <span />

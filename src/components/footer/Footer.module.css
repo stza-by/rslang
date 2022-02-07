@@ -1,7 +1,6 @@
 .container {
   font-size: 18px;
   font-weight: 500;
-  height: 100px;
 }
 .wrapper{
   display: flex;
@@ -9,7 +8,7 @@
   align-items: center;
   max-width: 1152px;
   margin: 0 auto;
-  padding: 25px 15px;
+  padding: 20px 15px;
 }
 .developers {
   display: flex;
@@ -30,4 +29,12 @@
   background-size: contain;
   width: 100px;
   height: 50px;
+}
+@media (max-width: 1024px) {
+  .developers {
+    flex-direction: column;
+  }
+  .developers a {
+    font-size: 18px;
+  }
 }
