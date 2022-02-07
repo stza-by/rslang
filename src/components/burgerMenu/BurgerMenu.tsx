@@ -7,38 +7,38 @@ interface IBurgerMenu {
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const BurgerMenu: React.FC<IBurgerMenu> = ({active, setActive}) => {
+const BurgerMenu: React.FC<IBurgerMenu> = ({ active, setActive }) => {
   const eventKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
       setActive(false);
     }
   }
   return (
-    <div 
-      className={active ? `${style.menu__container} ${style.active}` : `${style.menu__container}`} 
-      onClick={() => setActive(false)} 
+    <div
+      className={active ? `${style.menu__container} ${style.active}` : `${style.menu__container}`}
+      onClick={() => setActive(false)}
       onKeyDown={() => eventKeyDown}
       role='menu'
       tabIndex={0}>
-        <div 
-          className={`${style.menu__content} bg-main-orange`} 
-          onClick={e => e.stopPropagation()} 
+      <div
+        className={`${style.menu__content} bg-main-orange`}
+        onClick={e => e.stopPropagation()}
+        onKeyDown={() => eventKeyDown}
+        role='menu'
+        tabIndex={0}>
+        <ul
+          className={style.ul}
+          onClick={() => setActive(false)}
           onKeyDown={() => eventKeyDown}
           role='menu'
           tabIndex={0}>
-            <ul 
-              className={style.ul} 
-              onClick={() => setActive(false)}
-              onKeyDown={() => eventKeyDown}
-              role='menu'
-              tabIndex={0}>
-                <li><Link className={style.link__menu} to='/'>Главная</Link></li>
-                <li><Link className={style.link__menu} to='/'>О Команде</Link></li>
-                <li><Link className={style.link__menu} to='/textbook'>Учебник</Link></li>
-                <li><Link className={style.link__menu} to='/'>Мини-игры</Link></li>
-                <li><Link className={style.link__menu} to='/'>Статистика</Link></li>
-            </ul>
-        </div>
+          <li><Link className={style.link__menu} to='/'>Главная</Link></li>
+          <li><Link className={style.link__menu} to='/aboutUs'>О Команде</Link></li>
+          <li><Link className={style.link__menu} to='/textbook'>Учебник</Link></li>
+          <li><Link className={style.link__menu} to='/'>Мини-игры</Link></li>
+          <li><Link className={style.link__menu} to='/'>Статистика</Link></li>
+        </ul>
+      </div>
     </div>
   );
 };

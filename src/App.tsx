@@ -7,6 +7,7 @@ import Footer from './components/footer/Footer';
 import BurgerMenu from './components/burgerMenu/BurgerMenu';
 import Textbook from './pages/textbook/Textbook';
 import Popup from './components/popup/Popup';
+import AboutUs from './pages/aboutUs/AboutUs';
 
 const App: React.FC = () => {
   const [burgerMenuActive, setBurgerMenu] = useState(false);
@@ -20,6 +21,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path='/' element={<Main />} />
           <Route path='/textbook' element={<Textbook />} />
+          <Route path='/aboutUs' element={<AboutUs />} />
         </Routes>
       </div>
       <Footer />
@@ -30,7 +32,7 @@ const App: React.FC = () => {
         popup={whatPopup}
         setPopup={setWhatPopup}
       />
-  </>
+    </>
   )
 };
 
