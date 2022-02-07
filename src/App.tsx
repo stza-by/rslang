@@ -7,6 +7,7 @@ import Footer from './components/footer/Footer';
 import BurgerMenu from './components/burgerMenu/BurgerMenu';
 import Textbook from './pages/textbook/Textbook';
 import Popup from './components/popup/Popup';
+import AboutUs from './pages/aboutUs/AboutUs';
 import MiniGames from './pages/games/MiniGames';
 import AudioGame from './pages/games/AudioGame';
 import SprintGame from './pages/games/SprintGame';
@@ -23,6 +24,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path='/' element={<Main />} />
           <Route path='/textbook' element={<Textbook />} />
+          <Route path='/aboutUs' element={<AboutUs />} />
           <Route path='/games' element={<MiniGames />} />
           <Route path='/games/audio-game' element={<AudioGame />} />
           <Route path='/games/sprint' element={<SprintGame />} />
@@ -38,6 +40,7 @@ const App: React.FC = () => {
       />
     </>
   );
+
 };
 
 export default App;

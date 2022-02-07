@@ -12,6 +12,7 @@
   max-width: 1152px;
   margin: 0 auto;
   padding: 0 15px;
+  height: 100%;
 }
 body {
   background-color: #f7f7f7;
@@ -19,4 +20,10 @@ body {
 }
 .play-btn.active {
   background-image: url(./assets/pause.png);
+}
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
 }
