@@ -4,8 +4,7 @@
   align-items: center;
   max-width: 1152px;
   margin: 0 auto;
-  padding: 25px 15px;
-  height: 100px;
+  padding: 20px 15px;
 }
 .wrapper {
   display: flex;
@@ -38,4 +37,9 @@
   background: #333;
   display: block;
   transition: 0.3s;
+}
+@media (max-width: 768px) {
+  .btn {
+    width: 100px;
+  }
 }

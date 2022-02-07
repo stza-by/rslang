@@ -39,3 +39,12 @@
   background-color: #FED7AA;
   transition: 0.5s;
 }
+@media (max-width: 768px) {
+  .menu__content {
+    width: 295px;
+    font-size: 20px;
+  }
+  .ul li {
+    height: 25px;
+  }
+}
