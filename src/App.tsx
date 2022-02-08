@@ -3,7 +3,6 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Main from './pages/main/Main';
 import Header from './components/header/Header';
-import Footer from './components/footer/Footer';
 import BurgerMenu from './components/burgerMenu/BurgerMenu';
 import Textbook from './pages/textbook/Textbook';
 import Popup from './components/popup/Popup';
@@ -11,6 +10,7 @@ import AboutUs from './pages/aboutUs/AboutUs';
 import MiniGames from './pages/games/MiniGames';
 import AudioGame from './pages/games/AudioGame';
 import SprintGame from './pages/games/SprintGame';
+import Layout from './components/Layout';
 
 const App: React.FC = () => {
   const [burgerMenuActive, setBurgerMenu] = useState(false);
@@ -20,17 +20,16 @@ const App: React.FC = () => {
   return (
     <>
       <Header active={burgerMenuActive} setActive={setBurgerMenu} onSignInOpen={setPopupActive} />
-      <div className='container'>
-        <Routes>
-          <Route path='/' element={<Main />} />
-          <Route path='/textbook' element={<Textbook />} />
-          <Route path='/aboutUs' element={<AboutUs />} />
-          <Route path='/games' element={<MiniGames />} />
-          <Route path='/games/audio-game' element={<AudioGame />} />
-          <Route path='/games/sprint' element={<SprintGame />} />
-        </Routes>
-      </div>
-      <Footer />
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<Main />} />
+          <Route path='textbook' element={<Textbook />} />
+          <Route path='aboutUs' element={<AboutUs />} />
+          <Route path='games' element={<MiniGames />} />
+        </Route>
+        <Route path='/games/audio-game' element={<AudioGame />} />
+        <Route path='/games/sprint' element={<SprintGame />} />
+      </Routes>
       <BurgerMenu active={burgerMenuActive} setActive={setBurgerMenu} />
       <Popup
         active={popupActive}
@@ -40,7 +39,6 @@ const App: React.FC = () => {
       />
     </>
   );
-
 };
 
 export default App;

@@ -8,7 +8,7 @@ const Main: React.FC = () => (
     <div className={style.text__wrapper}>
       <p className={`${style.text} text-main-orange`}>RSLang
         <span className='text-black'>это коллекция наиболее популярных английский слов.
-          Мини-игры сделаю процесс обучения легким и интересным,<br /> а статистика покажет Ваш прогресс.
+          Мини-игры сделают процесс обучения легким и интересным,<br /> а статистика покажет Ваш прогресс.
         </span>
       </p>
     </div>
