@@ -11,6 +11,7 @@ import MiniGames from './pages/games/MiniGames';
 import AudioGame from './pages/games/AudioGame';
 import SprintGame from './pages/games/SprintGame';
 import Layout from './components/Layout';
+import GameLayout from './pages/games/GameLayout';
 
 const App: React.FC = () => {
   const [burgerMenuActive, setBurgerMenu] = useState(false);
@@ -27,8 +28,10 @@ const App: React.FC = () => {
           <Route path='aboutUs' element={<AboutUs />} />
           <Route path='games' element={<MiniGames />} />
         </Route>
-        <Route path='/games/audio-game' element={<AudioGame />} />
-        <Route path='/games/sprint' element={<SprintGame />} />
+        <Route path='/' element={<GameLayout />}>
+          <Route path='/games/audio-game' element={<AudioGame />} />
+          <Route path='/games/sprint' element={<SprintGame />} />
+        </Route>
       </Routes>
       <BurgerMenu active={burgerMenuActive} setActive={setBurgerMenu} />
       <Popup

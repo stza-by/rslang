@@ -4,9 +4,9 @@ import Footer from './footer/Footer';
 
 const Layout: React.FC = () => (
   <>
-    <div className='container'>
+    <main className='container'>
       <Outlet />
-    </div>
+    </main>
     <Footer />
   </>
 );

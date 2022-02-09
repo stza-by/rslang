@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import style from './textbook.module.css';
 
 const Textbook: React.FC = () => (
-  <main className={style.container}>
+  <div className={style.container}>
     <p className='text-4xl font-semibold text-gray-700 mb-7'>Учебник</p>
     <div className={style.ul__wrapper}>
     <ul className={`${style.ul} text-white`}>
@@ -21,7 +21,7 @@ const Textbook: React.FC = () => (
     </ul>
     </div>
 
-  </main>
+  </div>
 );
 
 export default Textbook;
