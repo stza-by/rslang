@@ -4,7 +4,7 @@ import Button from '../../components/button/Button';
 import Nav from '../../components/nav/Nav';
 
 const Main: React.FC = () => (
-  <main className={style.container}>
+  <div className={style.container}>
     <div className={style.text__wrapper}>
       <p className={`${style.text} text-main-orange`}>RSLang
         <span className='text-black'>это коллекция наиболее популярных английский слов.
@@ -14,7 +14,7 @@ const Main: React.FC = () => (
     </div>
     <Button classExtra={style.btn}>О приложении</Button>
     <Nav />
-  </main>
+  </div>
 );
 
 export default Main;
