@@ -9,7 +9,7 @@ import Popup from './components/popup/Popup';
 import AboutUs from './pages/aboutUs/AboutUs';
 import MiniGames from './pages/games/MiniGames';
 import AudioGame from './pages/games/AudioGame';
-import SprintGame from './pages/games/SprintGame';
+import SprintGame from './pages/games/sprint/SprintGame';
 import Layout from './components/Layout';
 import GameLayout from './pages/games/GameLayout';
 
