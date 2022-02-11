@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { IGameProps } from '../../services/types';
+import { IGameDataProps } from '../../services/types';
 
-const Game: React.FC<IGameProps> = ({ game }) => {
+const Game: React.FC<IGameDataProps> = ({ game }) => {
   const { name, img, description, rout } = game;
 
   return (
