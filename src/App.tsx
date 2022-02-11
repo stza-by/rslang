@@ -17,6 +17,7 @@ const App: React.FC = () => {
   const [burgerMenuActive, setBurgerMenu] = useState(false);
   const [popupActive, setPopupActive] = useState(false);
   const [whatPopup, setWhatPopup] = useState('login');
+  const [difficultLvl, setDifficultLvl] = useState('0');
 
   return (
     <>
@@ -26,11 +27,11 @@ const App: React.FC = () => {
           <Route index element={<Main />} />
           <Route path='textbook' element={<Textbook />} />
           <Route path='aboutUs' element={<AboutUs />} />
-          <Route path='games' element={<MiniGames />} />
+          <Route path='games' element={<MiniGames difficultLvl={difficultLvl} setDifficultLvl={setDifficultLvl} />} />
         </Route>
         <Route path='/' element={<GameLayout />}>
-          <Route path='/games/audio-game' element={<AudioGame />} />
-          <Route path='/games/sprint' element={<SprintGame />} />
+          <Route path='games/audio-game' element={<AudioGame difficultLvl={difficultLvl} />} />
+          <Route path='games/sprint' element={<SprintGame difficultLvl={difficultLvl} />} />
         </Route>
       </Routes>
       <BurgerMenu active={burgerMenuActive} setActive={setBurgerMenu} />
