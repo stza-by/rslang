@@ -38,7 +38,7 @@ export interface ICard {
   textExampleTranslate: string;
 }
 
-export interface IGameProps {
+export interface IGameDataProps {
   game: {
     id: number;
     name: string;
@@ -46,4 +46,8 @@ export interface IGameProps {
     description: string;
     rout: string;
   };
+}
+
+export interface IGameProps {
+  difficultLvl: string;
 }

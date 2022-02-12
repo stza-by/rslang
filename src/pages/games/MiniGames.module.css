@@ -1,5 +1,13 @@
+.container {
+  min-height: calc(100vh - 200px);
+}
+
 .link {
   font-size: 20px;
   font-weight: 600;
   color: #C95039;
+}
+
+.game {
+  min-height: calc(100vh - 100px);
 }
