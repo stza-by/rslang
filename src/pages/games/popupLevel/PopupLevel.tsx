@@ -1,19 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { LevelContext } from '../../../components/LevelProvider';
+import React, { useContext, useEffect, useState, MouseEvent } from 'react';
+import { LevelContext, WordsContext } from '../../../components/LevelProvider';
 import style from './PopupLevel.module.css';
 import { getCards } from '../../../services/dataAPI';
 
 const PopupLevel: React.FC = () => {
   const { level, setLevel } = useContext(LevelContext);
-  const [words, setWords] = useState<any>({});
+  const { words, setWords } = useContext(WordsContext);
   useEffect(() => {
     setLevel(level);
-    setWords(getCards(1, level).then((result) => {
-      console.log(result);
-      return result
-    }));
   }, [level]);
-  const chooseLevel = (e: any) => {
+  const chooseLevel = (e: MouseEvent<HTMLButtonElement>) => {
     const btn = e.target as HTMLButtonElement;
     setLevel(Number(btn.dataset.level));
     document.getElementById('levelsPopup')?.classList.add('close-popup');
