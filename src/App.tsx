@@ -20,9 +20,11 @@ import Level5 from './pages/textbook/Level5';
 import Level6 from './pages/textbook/Level6';
 
 const App: React.FC = () => {
+
     const [burgerMenuActive, setBurgerMenu] = useState(false);
     const [popupActive, setPopupActive] = useState(false);
     const [whatPopup, setWhatPopup] = useState('login');
+    const [difficultLvl, setDifficultLvl] = useState('0');
 
     return (
         <>
@@ -41,8 +43,8 @@ const App: React.FC = () => {
                     <Route path='games' element={<MiniGames/>}/>
                 </Route>
                 <Route path='/' element={<GameLayout/>}>
-                    <Route path='/games/audio-game' element={<AudioGame/>}/>
-                    <Route path='/games/sprint' element={<SprintGame/>}/>
+                    <Route path='games/audio-game' element={<AudioGame difficultLvl={difficultLvl} />} />
+                    <Route path='games/sprint' element={<SprintGame difficultLvl={difficultLvl} />} />
                 </Route>
             </Routes>
             <BurgerMenu active={burgerMenuActive} setActive={setBurgerMenu}/>
@@ -54,6 +56,7 @@ const App: React.FC = () => {
             />
         </>
     );
+
 };
 
 export default App;
