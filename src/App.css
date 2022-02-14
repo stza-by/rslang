@@ -27,3 +27,52 @@ body {
   justify-content: space-between;
   min-height: 100vh;
 }
+
+.card-container-level1 {
+  background-color: rgb(191, 219, 254);
+}
+
+.card-container-level2 {
+  background-color: rgb(96, 165, 250);
+}
+
+.card-container-level3 {
+  background-color: rgb(167, 139, 250);
+}
+
+.card-container-level4 {
+  background-color: rgb(124, 58, 237);
+  color: white;
+}
+
+.card-container-level5 {
+  background-color: rgb(253, 164, 175);
+}
+
+.card-container-level6 {
+  background-color: rgb(251, 113, 133);
+}
+
+.card-overlay-level1 {
+  background: linear-gradient(transparent 30%, rgb(191, 219, 254));
+}
+
+.card-overlay-level2 {
+  background: linear-gradient(transparent 30%, rgb(96, 165, 250));
+}
+
+.card-overlay-level3 {
+  background: linear-gradient(transparent 30%, rgb(167, 139, 250));
+}
+
+.card-overlay-level4 {
+  background: linear-gradient(transparent 30%, rgb(124, 58, 237));
+}
+
+.card-overlay-level5 {
+  background: linear-gradient(transparent 30%, rgb(253, 164, 175));
+}
+
+.card-overlay-level6 {
+  background: linear-gradient(transparent 30%, rgb(251, 113, 133));
+}

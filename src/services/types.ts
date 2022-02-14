@@ -20,6 +20,9 @@ export interface IUser {
   name: string;
   email: string;
 }
+export interface PlayerProps {
+  url:string
+}
 
 export interface ICard {
   id: string;
@@ -38,7 +41,14 @@ export interface ICard {
   textExampleTranslate: string;
 }
 
+export interface IRouteProps {
+  cardGroupId: number
+  groupPage: number
+  level: string
+}
+
 export interface IGameDataProps {
+
   game: {
     id: number;
     name: string;
