@@ -5,7 +5,7 @@ const randomAnswer = (array: ICard[] | IQuestions[]) => (Math.floor(Math.random(
 const isCorrectScore = (correctScore: number, setCorrectScore: any, score: number, setScore: any) => {
   setCorrectScore(correctScore += 1);
   console.log(correctScore);
-  if (correctScore === 3) {
+  if (correctScore === 4) {
     setCorrectScore(0);
     setScore(score += 20);
   }
@@ -102,4 +102,11 @@ export const timerFunc = (timer: number, setTimer: any) => {
       setTimer(timer -= 1)
     } else alert('Game over');
   }, 1000)
+}
+export const dotsActive = (style: any, correctScore: number) => {
+  const dots = document.querySelectorAll(`.${style.dot}`);
+  dots.forEach((el, i) => {
+    if (i < correctScore) el.classList.add('active-dot')
+    if (i >= correctScore) el.classList.remove('active-dot');
+  })
 }

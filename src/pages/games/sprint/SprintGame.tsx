@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState, MouseEvent } from 'react';
 import style from './SprintGame.module.css';
 import { getCardsAPI } from '../../../services/dataAPI';
 import { ICard, IGameProps, IQuestions } from '../../../services/types';
-import { changeQuestions, isCorrect, timerFunc } from './SprintGameUtils';
+import { changeQuestions, isCorrect, timerFunc, dotsActive } from './SprintGameUtils';
 
 const SprintGame: any = ({ difficultLvl }: any) => {
   const [backWords, setBackWords] = useState<ICard[]>([]);
@@ -33,6 +33,7 @@ const SprintGame: any = ({ difficultLvl }: any) => {
       ? isCorrect(words, backWords, question, answer, resultArray, score, setQuestion, setAnswer, setScore, correctScore, setCorrectScore, true)
       : isCorrect(words, backWords, question, answer, resultArray, score, setQuestion, setAnswer, setScore, correctScore, setCorrectScore, false);
   }
+
   return (
     (words.length !== 0) &&
     <div className={style.container}>
@@ -43,9 +44,10 @@ const SprintGame: any = ({ difficultLvl }: any) => {
             {timer}
           </div>
           <div className={style.counter}>
-            <div className={`${style.dot} active-dot`}></div>
             <div className={style.dot}></div>
             <div className={style.dot}></div>
+            <div className={style.dot}></div>
+            {dotsActive(style, correctScore)}
           </div>
           <p className={style.question}>{words[question].word}</p>
           <p className={style.answer}>{words[answer].wordTranslate}</p>
