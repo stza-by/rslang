@@ -51,3 +51,8 @@ export interface IGameDataProps {
 export interface IGameProps {
   difficultLvl: string;
 }
+
+export interface IQuestions {
+  word: string;
+  wordTranslate: string;
+}

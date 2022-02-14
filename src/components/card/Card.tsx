@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import style from './Card.module.css';
-import { getCards } from '../../services/dataAPI';
+import { getCardsAPI } from '../../services/dataAPI';
 import { ICard } from '../../services/types';
 
 const Card: any = () => {
@@ -8,7 +8,7 @@ const Card: any = () => {
   const [audio] = useState(new Audio());
   const [audioArray, setAudio] = useState<string[]>([]);
   useEffect(() => {
-    getCards()
+    getCardsAPI()
       .then((result: ICard[]) => {
         setCard(result);
         setAudio(Array(result[0].audio).concat(result[0].audioMeaning).concat(result[0].audioExample));

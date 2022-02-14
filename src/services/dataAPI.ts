@@ -3,7 +3,7 @@ import { getToken } from './utils';
 
 const BASE_URL = 'https://react-rslang-project.herokuapp.com/';
 
-export const getCards = async (page: number = 1, group: number = 1) => {
+export const getCardsAPI = async (page: number = 1, group: number = 1) => {
   const response = await fetch(`${BASE_URL}words?group=${group}&page=${page}`);
 
   return response.json();
