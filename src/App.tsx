@@ -40,7 +40,7 @@ const App: React.FC = () => {
                     <Route path='textbook/level5' element={<Level5/>}/>
                     <Route path='textbook/level6' element={<Level6/>}/>
                     <Route path='aboutUs' element={<AboutUs/>}/>
-                    <Route path='games' element={<MiniGames/>}/>
+                    <Route path='games' element={<MiniGames difficultLvl={difficultLvl} setDifficultLvl={setDifficultLvl}/>}/>
                 </Route>
                 <Route path='/' element={<GameLayout/>}>
                     <Route path='games/audio-game' element={<AudioGame difficultLvl={difficultLvl} />} />
