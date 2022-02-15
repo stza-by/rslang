@@ -8,7 +8,7 @@ import Textbook from './pages/textbook/Textbook';
 import Popup from './components/popup/Popup';
 import AboutUs from './pages/aboutUs/AboutUs';
 import MiniGames from './pages/games/MiniGames';
-import AudioGame from './pages/games/AudioGame';
+import AudioGame from './pages/games/audioGame/AudioGame';
 import SprintGame from './pages/games/SprintGame';
 import Layout from './components/Layout';
 import GameLayout from './pages/games/GameLayout';

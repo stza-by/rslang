@@ -21,7 +21,7 @@ export interface IUser {
   email: string;
 }
 
-export interface ICard {
+export interface IWord {
   id: string;
   group: number;
   page: number;

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import style from './Card.module.css';
-import { getCards } from '../../services/dataAPI';
-import { ICard } from '../../services/types';
+import { getWordsAPI } from '../../services/dataAPI';
+import { IWord } from '../../services/types';
 
 const Card: any = () => {
-  const [card, setCard] = useState<ICard[]>([]);
+  const [card, setCard] = useState<IWord[]>([]);
   const [audio] = useState(new Audio());
   const [audioArray, setAudio] = useState<string[]>([]);
   useEffect(() => {
-    getCards()
-      .then((result: ICard[]) => {
+    getWordsAPI()
+      .then((result: IWord[]) => {
         setCard(result);
         setAudio(Array(result[0].audio).concat(result[0].audioMeaning).concat(result[0].audioExample));
       });
