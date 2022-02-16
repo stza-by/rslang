@@ -16,7 +16,7 @@ const MiniGames: React.FC<IMiniGamesProps> = ({difficultLvl, setDifficultLvl}) =
   const changeDifficult = (e: React.ChangeEvent<HTMLInputElement>): void => setDifficultLvl(e.target.value);
 
   return (
-    <div className={`flex flex-col justify-between pt-20 pb-56 ${style.container}`}>
+    <div className={`flex flex-col justify-evenly ${style.container}`}>
       <div className='flex flex-col items-center'>
         <div className='text-2xl pb-5'>Выберите уровень сложности</div>
         <div className='flex gap-x-3'>
