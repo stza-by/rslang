@@ -3,6 +3,8 @@ import { getWordsAPI } from '../../../services/dataAPI';
 import { IGameProps, IWord } from '../../../services/types';
 import { getRandomPage, getThreeRandomNumbers } from '../../../services/utils';
 import style from './AudioGame.module.css';
+import trueAnswer from '../../../assets/sounds/yes.mp3';
+import falseAnswer from '../../../assets/sounds/no.mp3';
 
 const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
   const [words, setWords] = useState<Array<IWord>>([]);
@@ -12,6 +14,7 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
   const [musicIsPlay, setMusicIsPlay] = useState(false);
   const [audio] = useState(new Audio());
   const [isAnswered, setIsAnswered] = useState(false);
+  const [lastWord, setLastWord] = useState<HTMLButtonElement | null>(null);
 
   const playSound = () => {
     if (!musicIsPlay) {
@@ -33,13 +36,23 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
   const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
     if (target.value === words[wordNumber].wordTranslate) {
+      audio.src = trueAnswer;
       console.log(true);
       target.style.color = 'green';
     } else {
+      audio.src = falseAnswer;
       console.log(false);
       target.style.color = 'red';
     }
+    audio.play();
+    setLastWord(target);
     setIsAnswered(true);
+  };
+
+  const nextWord = () => {
+    if (wordNumber < words.length - 1) setWordNumber(wordNumber + 1);
+    if (lastWord) lastWord.style.color = 'black';
+    setIsAnswered(false);
   };
 
   const getWords = useCallback(() => {
@@ -75,7 +88,7 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
 
   return (
     <main
-      className={`${style.container} p-3 flex flex-col items-center justify-evenly bg-blue-200`}>
+      className={`${style.container} p-3 flex flex-col items-center justify-evenly bg-blue-200 gap-y-5`}>
       <div className='flex flex-col items-center'>
         <div
           style={
@@ -83,7 +96,9 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
               ? {
                   backgroundImage: `url("https://rss-words-3.herokuapp.com/${words[wordNumber].image}")`,
                 }
-              : { backgroundImage: 'none' }
+              : {
+                  backgroundImage: 'none',
+                }
           }
           className='flex items-center justify-center relative w-52 h-52 border-2 border-slate-700 bg-orange-200 hover:bg-orange-500 ease-in duration-300 rounded-full bg-center bg-cover bg-no-repeat'>
           <button
@@ -93,6 +108,11 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
             onClick={playSound}>
             {' '}
           </button>
+          <audio
+            src={`https://react-rslang-project.herokuapp.com/${words[wordNumber].audio}`}
+            autoPlay>
+            <track kind='captions' />
+          </audio>
           <i
             className={`${
               isAnswered ? 'opacity-0 pointer-events-none' : 'opacity-100'
@@ -102,7 +122,7 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
         <div
           className={`${
             isAnswered ? 'opacity-100' : 'opacity-0 pointer-events-none'
-          } text-xl pt-3 ease-in duration-300`}>
+          } text-xl pt-3`}>
           {words[wordNumber].word} {words[wordNumber].transcription}
         </div>
       </div>
@@ -120,8 +140,8 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
           </li>
         ))}
       </ul>
-      <button type='button' className='text-2xl' onClick={() => setWordNumber(wordNumber + 1)}>
-        пропустить
+      <button type='button' className='text-2xl ease-in duration-300' onClick={nextWord}>
+        {isAnswered ? 'дальше' : 'пропустить'}
       </button>
     </main>
   );
