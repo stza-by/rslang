@@ -38,6 +38,12 @@ export interface IWord {
   textExampleTranslate: string;
 }
 
+export interface IRouteProps {
+  cardGroupId: number;
+  groupPage: number;
+  level: string;
+}
+
 export interface IGameDataProps {
   game: {
     id: number;

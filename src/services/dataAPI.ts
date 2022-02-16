@@ -3,7 +3,7 @@ import { getToken } from './utils';
 
 const BASE_URL = 'https://react-rslang-project.herokuapp.com/';
 
-export const getWordsAPI = async (group: number = 1, page: number = 1): Promise<Array<IWord>> => {
+export const getWordsAPI = async (group: number, page: number): Promise<Array<IWord>> => {
   const response = await fetch(`${BASE_URL}words?group=${group}&page=${page}`);
 
   return response.json();

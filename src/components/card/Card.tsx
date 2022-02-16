@@ -1,63 +1,79 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, FC } from 'react';
+import ReactPaginate from 'react-paginate';
 import style from './Card.module.css';
 import { getWordsAPI } from '../../services/dataAPI';
-import { IWord } from '../../services/types';
+import { IWord, IRouteProps } from '../../services/types';
+import CardPlayer from '../../pages/textbook/CardPlayer/CardPlayer';
 
-const Card: any = () => {
-  const [card, setCard] = useState<IWord[]>([]);
-  const [audio] = useState(new Audio());
-  const [audioArray, setAudio] = useState<string[]>([]);
+const Card: FC<IRouteProps> = ({ cardGroupId, groupPage, level }) => {
+  const [cards, setCards] = useState<IWord[]>([]);
+  const [pageCount, setPageCount] = useState<number>(0);
+
+  const getCardsAssign = (group: number, page: number) => {
+    getWordsAPI(group, page).then((result) => {
+      setCards(result);
+      setPageCount(30);
+    });
+  };
   useEffect(() => {
-    getWordsAPI()
-      .then((result: IWord[]) => {
-        setCard(result);
-        setAudio(Array(result[0].audio).concat(result[0].audioMeaning).concat(result[0].audioExample));
-      });
-  }, []);
-  let currentAudio = 0;
-  const playAudio = () => {
-    const btn = document.getElementById(`btn-${card[0].id}`) as HTMLButtonElement;
-    if (currentAudio !== 3) {
-      audio.src = `https://rss-words-3.herokuapp.com/${audioArray[currentAudio]}`;
-      audio.play();
-      btn.classList.add('active');
-    } else {
-      currentAudio = 0;
-      btn.classList.remove('active');
-    }
+    getCardsAssign(cardGroupId, groupPage);
+  }, [cardGroupId, groupPage, level]);
+
+  const HandlerPageClick = (event: any) => {
+    getCardsAssign(cardGroupId, event.selected);
   };
-  const nextAudio = () => {
-    currentAudio += 1;
-    playAudio();
-  };
-  audio.addEventListener('ended', nextAudio);
-  return ((card.length !== 0) &&
-    <div className={style.container}>
-      <div className={style.header} style={{ backgroundImage: `url("https://rss-words-3.herokuapp.com/${card[0].image}")` }} >
-        <div className={style.overlay} style={{ background: "linear-gradient(transparent, rgb(191, 219, 254))" }}>
-          <div className={style.primary}>
-            <h3>{card[0].word}</h3>
+
+  return (
+    <>
+      <div className={style.cards}>
+        {cards.map((item) => (
+          <div className={`${style.container} card-container-${level}`} key={item.id}>
+            <div
+              className={style.header}
+              style={{ backgroundImage: `url("https://rss-words-3.herokuapp.com/${item.image}")` }}>
+              <div className={`${style.overlay} card-overlay-${level}`}>
+                <div className={style.primary}>
+                  <h3>{item.word}</h3>
+                </div>
+                <div className={style.translate_block}>
+                  <span>{item.wordTranslate}</span>
+                  <span>{item.transcription}</span>
+                  <div>
+                    <CardPlayer url={`https://rss-words-3.herokuapp.com/${item.audio}`} />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={style.content}>
+              <div className={style.word_block}>
+                <div dangerouslySetInnerHTML={{ __html: item.textMeaning }} />
+                <div className={style.word_example}>{item.textMeaningTranslate}</div>
+              </div>
+              <div className={style.word_block}>
+                <div dangerouslySetInnerHTML={{ __html: item.textExample }} />
+                <div className={style.word_example}>{item.textExampleTranslate}</div>
+              </div>
+            </div>
           </div>
-          <div className={style.translate_block} style={{ backgroundColor: "rgb(191, 219, 254))" }}>
-            <span>{card[0].wordTranslate}</span>
-            <span>{card[0].transcription}</span>
-            <button type='button' id={`btn-${card[0].id}`} className={`${style.btn} play-btn`} onClick={() => playAudio()}>
-            </button>
-          </div>
-        </div>
+        ))}
       </div>
-      <div className={style.content}>
-        <div className={style.word_block}>
-          <div dangerouslySetInnerHTML={{ __html: card[0].textMeaning }}></div>
-          <div className={style.word_example}>{card[0].textMeaningTranslate}</div>
-        </div>
-        <div className={style.word_block}>
-          <div dangerouslySetInnerHTML={{ __html: card[0].textExample }}></div>
-          <div className={style.word_example}>{card[0].textExampleTranslate}</div>
-        </div>
-      </div>
-    </div >
-  )
+      <ReactPaginate
+        previousLabel='<<'
+        nextLabel='>>'
+        breakLabel='...'
+        pageCount={pageCount}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={3}
+        onPageChange={HandlerPageClick}
+        containerClassName='z-0 relative flex rounded-md shadow-sm -space-x-px justify-center py-10'
+        pageLinkClassName='z-10 relative bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium'
+        previousLinkClassName='z-10 relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50'
+        nextLinkClassName='z-10 relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50'
+        breakLinkClassName='z-10 relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700'
+        activeClassName='z-20 relative bg-indigo-300 border-indigo-500 text-indigo-600 items-center border text-sm font-medium'
+      />
+    </>
+  );
 };
 
 export default Card;
