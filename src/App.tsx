@@ -13,6 +13,8 @@ import SprintGame from './pages/games/SprintGame';
 import Layout from './components/Layout';
 import GameLayout from './pages/games/GameLayout';
 import Card from './components/card/Card';
+import Statistic from "./pages/statistic/Statistic";
+import Difficult from "./pages/textbook/Difficult";
 
 const App: React.FC = () => {
 
@@ -34,8 +36,10 @@ const App: React.FC = () => {
           <Route path='textbook/level4' element={<Card cardGroupId={3} groupPage={0} level='level4'/>}/>
           <Route path='textbook/level5' element={<Card cardGroupId={4} groupPage={0} level='level5'/>}/>
           <Route path='textbook/level6' element={<Card cardGroupId={5} groupPage={0} level='level6'/>}/>
+            <Route path='textbook/difficult' element={<Difficult/>}/>
           <Route path='aboutUs' element={<AboutUs/>}/>
           <Route path='games' element={<MiniGames difficultLvl={difficultLvl} setDifficultLvl={setDifficultLvl}/>}/>
+            <Route path='statistic' element={<Statistic/>}/>
         </Route>
         <Route path='/' element={<GameLayout/>}>
           <Route path='games/audio-game' element={<AudioGame difficultLvl={difficultLvl} />} />
@@ -51,7 +55,6 @@ const App: React.FC = () => {
       />
     </>
   );
-
 };
 
 export default App;

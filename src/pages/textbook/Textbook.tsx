@@ -17,7 +17,7 @@ const Textbook: React.FC = () => (
       <li className='bg-rose-400'><Link className={style.link} to='/textbook/level6'><span>C2</span>Proficiency</Link></li>
     </ul>
     <ul className={`${style.ul} ${style.ul__difficult} text-white`}>
-      <li className='bg-amber-400'><Link className={style.link} to='/'>Сложные слова</Link></li>
+      <li className='bg-amber-400'><Link className={style.link} to='difficult'>Сложные слова</Link></li>
     </ul>
     </div>
 

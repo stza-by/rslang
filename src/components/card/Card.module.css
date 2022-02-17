@@ -17,6 +17,46 @@
   z-index: 1;
 }
 
+.games_links {
+  position: fixed;
+  top: 15%;
+  right: 7%;
+  display: flex;
+  column-gap: 10px;
+}
+
+.game_link {
+  position: relative;
+  width: 6rem;
+  height: 6rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+}
+
+.game_link .tooltip {
+  top: 110px;
+  left: -50%;
+}
+
+.game_link:hover {
+  cursor: pointer;
+  border: 2px solid #C95039;
+}
+
+.game_link:hover .tooltip {
+  visibility: visible;
+}
+
+.audioGame_link {
+  background-image: url("../../assets/audioGame.webp");
+}
+
+.sprintGame_link {
+  background-image: url("../../assets/sprintGame.webp");
+}
+
 .header {
   height: 260px;
   width: 100%;
@@ -40,7 +80,59 @@
   -webkit-align-items: flex-end;
   align-items: flex-end;
   -webkit-justify-content: space-between;
-  justify-content: flex-end;
+  justify-content: space-between;
+}
+
+.marks {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 20px;
+}
+
+.mark_difficult {
+  position: relative;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+  color: white;
+  background-color: #737373;
+  border-radius: 50%;
+}
+
+.tooltip {
+  visibility: hidden;
+  position: absolute;
+  top: 50px;
+  left: 0;
+  z-index: 1;
+  width: 250px;
+  background-color: #737373;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  font-size: 1rem;
+}
+
+.mark_difficult:hover {
+  cursor: pointer;
+  color: gold;
+}
+
+.mark_difficult:hover .tooltip {
+  visibility: visible;
+}
+
+.word {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  -webkit-align-items: flex-end;
 }
 
 .primary {
