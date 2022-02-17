@@ -92,7 +92,6 @@ export const changeQuestions = (array: ICard[]) => {
       gameArray.push(wordsObject);
     }
   });
-  console.log('gameArray = ', gameArray);
   return gameArray;
 }
 
