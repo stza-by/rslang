@@ -21,7 +21,7 @@ export interface IUser {
   email: string;
 }
 
-export interface ICard {
+export interface IWord {
   id: string;
   group: number;
   page: number;
@@ -36,6 +36,12 @@ export interface ICard {
   wordTranslate: string;
   textMeaningTranslate: string;
   textExampleTranslate: string;
+}
+
+export interface IRouteProps {
+  cardGroupId: number;
+  groupPage: number;
+  level: string;
 }
 
 export interface IGameDataProps {

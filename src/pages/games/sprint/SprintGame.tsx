@@ -1,11 +1,11 @@
 import React, { useEffect, useState, MouseEvent, KeyboardEvent } from 'react';
 import style from './SprintGame.module.css';
-import { getCardsAPI } from '../../../services/dataAPI';
-import { ICard, IQuestions } from '../../../services/types';
+import { getWordsAPI } from '../../../services/dataAPI';
+import { IWord, IQuestions } from '../../../services/types';
 import { changeQuestions, isCorrect, timerFunc, dotsActive } from './SprintGameUtils';
 
 const SprintGame: any = ({ difficultLvl }: any) => {
-  const [backWords, setBackWords] = useState<ICard[]>([]);
+  const [backWords, setBackWords] = useState<IWord[]>([]);
   const [words, setWords] = useState<IQuestions[]>([]);
   const [question, setQuestion] = useState(0);
   const [answer, setAnswer] = useState(0);
@@ -15,7 +15,7 @@ const SprintGame: any = ({ difficultLvl }: any) => {
   const [timer, setTimer] = useState<number>(60);
   const randomPage = () => (Math.floor(Math.random() * (19)));
   const getCards = async () => {
-    getCardsAPI(randomPage(), +difficultLvl).then((result) => {
+    getWordsAPI(randomPage(), +difficultLvl).then((result) => {
       setBackWords(result);
       setWords(changeQuestions(result));
     });

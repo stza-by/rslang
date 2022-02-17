@@ -1,6 +1,6 @@
-import { IQuestions, ICard } from '../../../services/types';
+import { IQuestions, IWord } from '../../../services/types';
 
-const randomAnswer = (array: ICard[] | IQuestions[]) => (Math.floor(Math.random() * (array.length)));
+const randomAnswer = (array: IWord[] | IQuestions[]) => (Math.floor(Math.random() * (array.length)));
 
 const isCorrectScore = (correctScore: number, setCorrectScore: any, score: number, setScore: any) => {
   setCorrectScore(correctScore += 1);
@@ -37,7 +37,7 @@ const wordWrong =
   };
 
 export const isCorrect =
-  (array: IQuestions[], backWords: ICard[], question: number, answer: number, resultArray: boolean[], score: number,
+  (array: IQuestions[], backWords: IWord[], question: number, answer: number, resultArray: boolean[], score: number,
     setQuestion: any, setAnswer: any, setScore: any, correctScore: number, setCorrectScore: any, isTrue: boolean) => {
     if (question < array.length - 1) {
       if (isTrue) {
@@ -73,7 +73,7 @@ export const isCorrect =
     }
   }
 
-export const changeQuestions = (array: ICard[]) => {
+export const changeQuestions = (array: IWord[]) => {
   const randomTranslate = () => (Math.floor(Math.random() * (1 + 1)));
   const gameArray: IQuestions[] = [];
   array.forEach((el, i) => {

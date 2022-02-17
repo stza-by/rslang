@@ -1,9 +1,9 @@
-import { ISignUpUser, ILoginUser, IGetUSer, IUser } from './types';
+import { ISignUpUser, ILoginUser, IGetUSer, IUser, IWord } from './types';
 import { getToken } from './utils';
 
 const BASE_URL = 'https://react-rslang-project.herokuapp.com/';
 
-export const getCardsAPI = async (page: number = 1, group: number = 1) => {
+export const getWordsAPI = async (group: number = 1, page: number = 1): Promise<Array<IWord>> => {
   const response = await fetch(`${BASE_URL}words?group=${group}&page=${page}`);
 
   return response.json();
@@ -33,7 +33,7 @@ export const userLoginAPI = async (user: ILoginUser): Promise<IGetUSer | boolean
   return res.status === 200 ? res.json() : false;
 };
 
-export const getUserAPI = async (userId: string): Promise<IUser> => {
+export const getUserAPI = async (userId: string): Promise<IUser | null> => {
   const token = getToken();
   const res = await fetch(`${BASE_URL}users/${userId}`, {
     method: 'GET',
@@ -42,5 +42,5 @@ export const getUserAPI = async (userId: string): Promise<IUser> => {
       Accept: 'application/json',
     },
   });
-  return res.status === 200 ? res.json() : false;
+  return res.status === 200 ? res.json() : null;
 };

@@ -43,3 +43,14 @@ export const getAllGames = () => [
     rout: 'sprint',
   },
 ];
+
+export const getRandomPage = () => Math.floor(Math.random() * 30);
+
+export const getThreeRandomNumbers = (trueNumber: number): Array<number> => {
+  const result = [trueNumber];
+  while (result.length < 4) {
+    const randomNumber = Math.floor(Math.random() * 20);
+    if (!result.includes(randomNumber)) result.push(randomNumber);
+  }
+  return result.sort(() => Math.random() - 0.5);
+};
