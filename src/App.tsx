@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import './App.css';
 import {Routes, Route} from 'react-router-dom';
 import Main from './pages/main/Main';
@@ -13,6 +13,8 @@ import SprintGame from './pages/games/SprintGame';
 import Layout from './components/Layout';
 import GameLayout from './pages/games/GameLayout';
 import Card from './components/card/Card';
+import { IUser } from './services/types';
+import { UserContext } from './components/popup/UserContext';
 
 const App: React.FC = () => {
 
@@ -20,9 +22,17 @@ const App: React.FC = () => {
   const [popupActive, setPopupActive] = useState(false);
   const [whatPopup, setWhatPopup] = useState('login');
   const [difficultLvl, setDifficultLvl] = useState('0');
+  const [user, setUser] = useState<IUser | null>(null);
+
+  const userValue = useMemo(() => ({ user, setUser }), [user])
+
+  useEffect(() => {
+    console.log(user);
+  }, [user])
 
   return (
-    <>
+    <UserContext.Provider value={userValue}>
+      <>
       <Header active={burgerMenuActive} setActive={setBurgerMenu} onSignInOpen={setPopupActive}/>
       <Routes>
         <Route path='/' element={<Layout/>}>
@@ -50,6 +60,7 @@ const App: React.FC = () => {
         setPopup={setWhatPopup}
       />
     </>
+    </UserContext.Provider>
   );
 
 };

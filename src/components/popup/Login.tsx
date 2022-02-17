@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { userLoginAPI } from '../../services/dataAPI';
-import { ILoginUser, IUser } from '../../services/types';
+import { ILoginUser } from '../../services/types';
 import { checkUserAuthorization } from '../../services/utils';
+import { UserContext } from './UserContext';
 
 interface ILogin {
   setWhatPopup: React.Dispatch<React.SetStateAction<string>>;
@@ -10,7 +11,7 @@ interface ILogin {
 
 const Login: React.FC<ILogin> = ({ setWhatPopup }) => {
   const [loginIsCorrect, setLoginIsCorrect] = useState(true);
-  const [user, setUser] = useState<IUser | null>(null);
+  const { user, setUser } = useContext(UserContext);
 
   const {
     register,
@@ -21,18 +22,17 @@ const Login: React.FC<ILogin> = ({ setWhatPopup }) => {
     mode: 'onBlur',
   });
 
-  const check = () => {
+  const updateUser = useCallback(() => {
     checkUserAuthorization().then((checkedUser) => {
       if (JSON.stringify(user) !== JSON.stringify(checkedUser)) {
         setUser(checkedUser);
       }
     });
-  };
+  }, [setUser, user]);
 
   useEffect(() => {
-    check();
-    console.log(user);
-  }, [user]);
+    updateUser();
+  }, [updateUser, user]);
 
   const onSubmit: SubmitHandler<ILoginUser> = async (data) => {
     const res = await userLoginAPI(data);
@@ -40,7 +40,7 @@ const Login: React.FC<ILogin> = ({ setWhatPopup }) => {
       setLoginIsCorrect(true);
       reset();
       localStorage.setItem('userData', JSON.stringify(res));
-      check();
+      updateUser();
     } else {
       setLoginIsCorrect(false);
     }
