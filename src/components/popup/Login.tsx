@@ -11,6 +11,7 @@ interface ILogin {
 
 const Login: React.FC<ILogin> = ({ setWhatPopup }) => {
   const [loginIsCorrect, setLoginIsCorrect] = useState(true);
+  const [signInIsDisabled, setSignInIsDisabled] = useState(false);
   const { user, setUser } = useContext(UserContext);
 
   const {
@@ -31,10 +32,12 @@ const Login: React.FC<ILogin> = ({ setWhatPopup }) => {
   }, [setUser, user]);
 
   useEffect(() => {
+    setSignInIsDisabled(false);
     updateUser();
   }, [updateUser, user]);
 
   const onSubmit: SubmitHandler<ILoginUser> = async (data) => {
+    setSignInIsDisabled(true);
     const res = await userLoginAPI(data);
     if (typeof res === 'object') {
       setLoginIsCorrect(true);
@@ -42,6 +45,7 @@ const Login: React.FC<ILogin> = ({ setWhatPopup }) => {
       localStorage.setItem('userData', JSON.stringify(res));
       updateUser();
     } else {
+      setSignInIsDisabled(false);
       setLoginIsCorrect(false);
     }
   };
@@ -89,6 +93,7 @@ const Login: React.FC<ILogin> = ({ setWhatPopup }) => {
           className='p-2 border-2 border-white bg-yellow-400 w-full text-lg font-bold hover:border-gray-600'
           type='submit'
           value='Войти'
+          disabled={signInIsDisabled}
         />
         <div className='h-7'>
           {!loginIsCorrect && <p className='h-7 text-red-600'>Wrong email or password</p>}
@@ -101,7 +106,7 @@ const Login: React.FC<ILogin> = ({ setWhatPopup }) => {
           onClick={() => setWhatPopup('signUp')}>
           Регистрация
         </button>
-        <button className='hover:text-main-orange' type='button'>
+        <button className='hover:text-main-orange' type='button' onClick={() => setWhatPopup('signUp')}>
           Забыли пароль?
         </button>
       </div>
