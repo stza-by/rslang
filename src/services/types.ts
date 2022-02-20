@@ -57,3 +57,17 @@ export interface IGameDataProps {
 export interface IGameProps {
   difficultLvl: string;
 }
+
+export interface IQuestions {
+  word: string;
+  wordTranslate: string;
+  wordTranslateRight: string;
+  audio: string;
+  transcription: string;
+}
+export interface IResultPopup {
+  resultArray: boolean[],
+  words: IQuestions[],
+  score: number | null,
+  session: number
+}
