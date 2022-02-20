@@ -1,8 +1,9 @@
-import React, { useEffect, useState, MouseEvent, KeyboardEvent } from 'react';
+import React, { useEffect, useState, MouseEvent, KeyboardEvent, useCallback } from 'react';
 import style from './SprintGame.module.css';
 import { getWordsAPI } from '../../../services/dataAPI';
-import { IWord, IQuestions } from '../../../services/types';
+import { IWord, IQuestions, IGameProps } from '../../../services/types';
 import { changeQuestions, isCorrect, timerFunc, dotsActive } from './SprintGameUtils';
+import ResultPopup from '../ResultPopup';
 
 const SprintGame: any = ({ difficultLvl }: any) => {
   const [backWords, setBackWords] = useState<IWord[]>([]);
@@ -12,17 +13,25 @@ const SprintGame: any = ({ difficultLvl }: any) => {
   const [resultArray, setResultArray] = useState([]);
   const [score, setScore] = useState<number>(0);
   const [correctScore, setCorrectScore] = useState<number>(0);
-  const [timer, setTimer] = useState<number>(60);
+  const [timer, setTimer] = useState<number>(5);
+  const [wordsIsLoaded, setWordsIsLoaded] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [session, setSession] = useState(0);
+
   const randomPage = () => (Math.floor(Math.random() * (19)));
-  const getCards = async () => {
-    getWordsAPI(randomPage(), +difficultLvl).then((result) => {
+
+  const getCards = useCallback(() => {
+    getWordsAPI(+difficultLvl, randomPage()).then((result) => {
       setBackWords(result);
       setWords(changeQuestions(result));
+      setWordsIsLoaded(true);
     });
-  }
+  }, [difficultLvl])
+
   useEffect(() => {
     getCards();
   }, []);
+
   useEffect(() => {
     timerFunc(timer, setTimer);
   }, [timer]);
@@ -33,6 +42,7 @@ const SprintGame: any = ({ difficultLvl }: any) => {
       ? isCorrect(words, backWords, question, answer, resultArray, score, setQuestion, setAnswer, setScore, correctScore, setCorrectScore, true)
       : isCorrect(words, backWords, question, answer, resultArray, score, setQuestion, setAnswer, setScore, correctScore, setCorrectScore, false);
   }
+
   const eventCorrectPress: any = (e: KeyboardEvent<HTMLButtonElement>) => {
     if (e.code === 'ArrowLeft') {
       isCorrect(words, backWords, question, answer, resultArray, score, setQuestion, setAnswer, setScore, correctScore, setCorrectScore, true)
@@ -40,15 +50,19 @@ const SprintGame: any = ({ difficultLvl }: any) => {
       isCorrect(words, backWords, question, answer, resultArray, score, setQuestion, setAnswer, setScore, correctScore, setCorrectScore, false);
     }
   }
+
   useEffect(() => {
     document.addEventListener('keydown', eventCorrectPress);
     return () => {
       document.removeEventListener('keydown', eventCorrectPress);
     }
   })
+  if (!wordsIsLoaded) return <div>Загрузка...</div>;
+  if (error) return <div>{error}</div>;
   return (
     (words.length !== 0) &&
     <div className={style.container}>
+      {((resultArray.length === 20 || timer === 0) && <ResultPopup resultArray={resultArray} words={words} score={score} session={session} />)}
       < div className={style.game}>
         <h3 className={style.result}>Текущий результат: {score}</h3>
         <div className={style.game__wrapper}>
