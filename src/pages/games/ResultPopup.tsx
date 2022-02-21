@@ -51,7 +51,7 @@ const ResultPopup: React.FC<IResultPopup> = ({ resultArray, words, score, game }
         <div className={style.result__container}>
           {
             resultArray.map((res, i) =>
-            (<div className={style.result} key={`res-${i + 1}`}>
+            (<div className={style.result} key={`${Date.now() + i}`}>
               <div>{(res === false) ? "\u274c" : "\u2705"}</div>
               <div className={style.word}>{words[i].word}</div>
               <div className={style.word}>{words[i].transcription}</div>
