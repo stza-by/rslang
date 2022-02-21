@@ -46,7 +46,7 @@ const Header: React.FC<IHeaderProps> = ({ setActive, active, onSignInOpen }) => 
           <div className='flex items-center relative'>
             <i
               className={`fa-solid fa-circle-exclamation flex items-center flex-row-reverse text-2xl pr-3 cursor-pointer ${style.note}`}>
-              <span className={`text-sm w-56 absolute top-16 ${style.tooltip}`}>
+              <span className={`text-sm w-56 absolute top-16 z-10 ${style.tooltip}`}>
                 Без авторизации не доступен весь функционал приложения.
               </span>
             </i>

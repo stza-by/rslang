@@ -42,11 +42,11 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
     if (target.value === words[wordNumber].wordTranslate) {
       audio.src = trueAnswer;
       target.style.color = 'green';
-      resultArray.push(true);
+      setResultArray([...resultArray, true]);
     } else {
       audio.src = falseAnswer;
       target.style.color = 'red';
-      resultArray.push(false);
+      setResultArray([...resultArray, false]);
     }
     audio.play();
     setLastWord(target);
@@ -54,15 +54,25 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
   };
 
   const nextWord = () => {
-    if (wordNumber < words.length - 1) setWordNumber(wordNumber + 1);
-    if (isAnswered === false) resultArray.push(false);
+    if (wordNumber < words.length - 1) {
+      setWordNumber(wordNumber + 1);
+      if (!isAnswered) setResultArray([...resultArray, false]);
+    }
+    if (wordNumber === 19 && !isAnswered) setResultArray([...resultArray, false]);
     if (lastWord) lastWord.style.color = 'black';
     setIsAnswered(false);
   };
 
   const getWords = useCallback(() => {
     const randomPage = getRandomPage();
-    getWordsAPI(+difficultLvl, randomPage).then(
+    let wordsParams;
+    const textBookParams = localStorage.getItem('gamesParams');
+    if (textBookParams) {
+      wordsParams = JSON.parse(textBookParams);
+    } else {
+      wordsParams = [+difficultLvl, randomPage];
+    }
+    getWordsAPI(wordsParams[0], wordsParams[1]).then(
       (res) => {
         setWords(res);
         setWordsIsLoaded(true);
@@ -93,20 +103,21 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
   if (!wordsIsLoaded) return <div>Загрузка...</div>;
 
   return (
-    <main
-      className={`${style.container} p-3 flex flex-col items-center justify-evenly gap-y-5`}>
-      {((resultArray.length === 20) && <ResultPopup resultArray={resultArray} words={wordsResult} score={null} game='Аудиовызов' />)}
+    <main className={`${style.container} p-3 flex flex-col items-center justify-evenly gap-y-5`}>
+      {resultArray.length === 20 && (
+        <ResultPopup resultArray={resultArray} words={wordsResult} score={null} game='Аудиовызов' />
+      )}
       <div className={style.game__wrapper}>
         <div className='flex flex-col items-center mb-10'>
           <div
             style={
               isAnswered
                 ? {
-                  backgroundImage: `url("https://rss-words-3.herokuapp.com/${words[wordNumber].image}")`,
-                }
+                    backgroundImage: `url("https://rss-words-3.herokuapp.com/${words[wordNumber].image}")`,
+                  }
                 : {
-                  backgroundImage: 'none',
-                }
+                    backgroundImage: 'none',
+                  }
             }
             className='flex items-center justify-center relative w-52 h-52 border-slate-700 bg-white hover:bg-orange-400 ease-in duration-300 rounded-full bg-center bg-cover bg-no-repeat'>
             <button
@@ -122,14 +133,17 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
               <track kind='captions' />
             </audio>
             <i
-              className={`${isAnswered ? 'opacity-0 pointer-events-none' : 'opacity-100'
-                } fa-solid fa-podcast text-6xl flex items-center justify-center text-blue-500 leading-4 ease-in duration-300`}
+              className={`${
+                isAnswered ? 'opacity-0 pointer-events-none' : 'opacity-100'
+              } fa-solid fa-podcast text-6xl flex items-center justify-center text-blue-500 leading-4 ease-in duration-300`}
             />
           </div>
           <div
-            className={`${isAnswered ? 'opacity-100' : 'opacity-0 pointer-events-none'
-              } text-xl pt-5`}>
-            {words[wordNumber].word} {words[wordNumber].transcription} {words[wordNumber].wordTranslate}
+            className={`${
+              isAnswered ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            } text-xl pt-5`}>
+            {words[wordNumber].word} {words[wordNumber].transcription}{' '}
+            {words[wordNumber].wordTranslate}
           </div>
         </div>
         <ul className={style.list}>
