@@ -5,13 +5,11 @@ import style from './Card.module.css';
 import { getWordsAPI } from '../../services/dataAPI';
 import { IWord, IRouteProps } from '../../services/types';
 import CardPlayer from '../../pages/textbook/CardPlayer/CardPlayer';
-import { getAllGames } from '../../services/utils';
 
 const Card: FC<IRouteProps> = ({ cardGroupId, groupPage, level }) => {
   const [cards, setCards] = useState<IWord[]>([]);
   const [pageParams, setPageParams] = useState<Array<number>>([cardGroupId, groupPage]);
   const [cardsIsLoaded, setCardsIsLoaded] = useState(false);
-  const games = getAllGames();
 
   const getCardsAssign = (group: number, page: number) => {
     getWordsAPI(group, page).then((result) => {

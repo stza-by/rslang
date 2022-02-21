@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Main from './pages/main/Main';
@@ -26,10 +26,6 @@ const App: React.FC = () => {
   const [user, setUser] = useState<IUser | null>(null);
 
   const userValue = useMemo(() => ({ user, setUser }), [user]);
-
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
 
   return (
     <UserContext.Provider value={userValue}>
