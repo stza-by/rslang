@@ -22,7 +22,7 @@ const Card: FC<IRouteProps> = ({ cardGroupId, groupPage, level }) => {
 
   const paramsForGames = () => {
     localStorage.setItem('gamesParams', JSON.stringify(pageParams));
-  }
+  };
 
   const savePage = useCallback(() => {
     localStorage.setItem('textBookParams', JSON.stringify(pageParams));
@@ -34,7 +34,6 @@ const Card: FC<IRouteProps> = ({ cardGroupId, groupPage, level }) => {
   };
 
   useEffect(() => {
-    console.log(pageParams);
     getCardsAssign(pageParams[0], pageParams[1]);
     window.addEventListener('beforeunload', savePage);
     window.addEventListener('load', loadPage);
@@ -53,33 +52,52 @@ const Card: FC<IRouteProps> = ({ cardGroupId, groupPage, level }) => {
 
   return (
     <>
-      <div className='flex p-12 justify-around items-center'>
-        {games.map((game) => (
-          <div key={game.id} className='flex flex-col items-center'>
-            <Link
-              to={game.rout}
-              className='w-20 h-20 bg-cover bg-center bg-no-repeat text-center rounded-full border-2 border-main-white hover:border-main-orange ease-in duration-300'
-              style={{ backgroundImage: `url(${game.img})` }}
-            />
-            <h3 className='text-xl'>{game.name}</h3>
-          </div>
-        ))}
-      </div>
       <div className={style.cards}>
         {cards.map((item) => (
           <div className={`${style.container} card-container-${level}`} key={item.id}>
+            <div className={style.games_links}>
+              <div className={`${style.game_link} ${style.audioGame_link}`}>
+                <Link to='/games/audio-game' className='block rounded-full w-full h-full' />
+                <span className={style.tooltip}>Начать игру Аудиовызов</span>
+              </div>
+              <div className={`${style.game_link} ${style.sprintGame_link}`}>
+                <Link to='/games/sprint' className='block rounded-full w-full h-full' />
+                <span className={style.tooltip}>Начать игру Спринт</span>
+              </div>
+            </div>
             <div
               className={style.header}
-              style={{ backgroundImage: `url("https://rss-words-3.herokuapp.com/${item.image}")` }}>
+              style={{
+                backgroundImage: `url("https://rslang-helen-js.herokuapp.com/${item.image}")`,
+              }}>
               <div className={`${style.overlay} card-overlay-${level}`}>
-                <div className={style.primary}>
-                  <h3>{item.word}</h3>
+                <div className={style.marks}>
+                  <div className={style.mark_difficult}>
+                    {'\u2605'}
+                    <span className={style.tooltip}>Отметить как сложное</span>
+                  </div>
+                  <div className={style.mark_difficult}>
+                    {'\u2665'}
+                    <span className={style.tooltip}>Отметить как изученное</span>
+                  </div>
+                  <div className={style.mark_difficult}>
+                    {'\u259F'}
+                    <span className={style.tooltip}>Статистика по слову</span>
+                  </div>
                 </div>
-                <div className={style.translate_block}>
-                  <span>{item.wordTranslate}</span>
-                  <span>{item.transcription}</span>
-                  <div>
-                    <CardPlayer url={`https://rss-words-3.herokuapp.com/${item.audio}`} />
+                <div className={style.word}>
+                  <div className={style.primary}>
+                    <h3>{item.word}</h3>
+                  </div>
+                  <div className={style.translate_block}>
+                    <span>{item.wordTranslate}</span>
+                    <span>{item.transcription}</span>
+                    <div>
+                      <CardPlayer
+                        url='https://rslang-helen-js.herokuapp.com/'
+                        audioNameList={[item.audio, item.audioMeaning, item.audioExample]}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -99,8 +117,8 @@ const Card: FC<IRouteProps> = ({ cardGroupId, groupPage, level }) => {
       </div>
       <ReactPaginate
         forcePage={pageParams[1]}
-        previousLabel='<<'
-        nextLabel='>>'
+        previousLabel={'\u00AB'}
+        nextLabel={'\u00BB'}
         breakLabel='...'
         pageCount={30}
         marginPagesDisplayed={2}

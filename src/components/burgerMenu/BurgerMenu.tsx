@@ -36,7 +36,7 @@ const BurgerMenu: React.FC<IBurgerMenu> = ({ active, setActive }) => {
           <li><Link className={style.link__menu} to='/aboutUs'>О Команде</Link></li>
           <li><Link className={style.link__menu} to='/textbook'>Учебник</Link></li>
           <li><Link className={style.link__menu} to='/games'>Мини-игры</Link></li>
-          <li><Link className={style.link__menu} to='/'>Статистика</Link></li>
+          <li><Link className={style.link__menu} to='/statistic'>Статистика</Link></li>
         </ul>
       </div>
     </div>
