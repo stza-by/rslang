@@ -8,7 +8,7 @@ interface IMiniGamesProps {
   setDifficultLvl: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const MiniGames: React.FC<IMiniGamesProps> = ({difficultLvl, setDifficultLvl}) => {
+const MiniGames: React.FC<IMiniGamesProps> = ({ difficultLvl, setDifficultLvl }) => {
   const games = getAllGames();
 
   const isLvlSelected = (val: string) => difficultLvl === val;

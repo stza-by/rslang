@@ -3,7 +3,7 @@ import { getToken } from './utils';
 
 const BASE_URL = 'https://react-rslang-project.herokuapp.com/';
 
-export const getWordsAPI = async (group: number, page: number): Promise<Array<IWord>> => {
+export const getWordsAPI = async (group: number = 1, page: number = 1): Promise<Array<IWord>> => {
   const response = await fetch(`${BASE_URL}words?group=${group}&page=${page}`);
 
   return response.json();
@@ -44,3 +44,45 @@ export const getUserAPI = async (userId: string): Promise<IUser | null> => {
   });
   return res.status === 200 ? res.json() : null;
 };
+
+export const setUserStatistic = async (id: string, learnedWords: number, optional: any) => {
+  const response = await fetch(`${BASE_URL}users/${id}/statistics`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      learnedWords,
+      optional,
+    }),
+  });
+
+  if (response.status === 401) {
+    throw new Error('Access token is missing or invalid!');
+  } else if (response.status !== 200) {
+    throw new Error('Some ERROR!');
+  }
+}
+
+export const getUserStatistic = async (id: string) => {
+  const response = await fetch(`${BASE_URL}users/${id}/statistics`, {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+      Accept: 'application/json',
+    },
+  });
+
+  if (response.status === 401) {
+    throw new Error('Access token is missing or invalid!');
+  } else if (response.status === 404) {
+    throw new Error('Statistics not found!');
+  } else if (response.status !== 200) {
+    throw new Error('Some ERROR!');
+  }
+
+  const userStatistic = await response.json();
+
+  return userStatistic;
+}
