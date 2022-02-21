@@ -13,10 +13,9 @@ const SprintGame: any = ({ difficultLvl }: any) => {
   const [resultArray, setResultArray] = useState([]);
   const [score, setScore] = useState<number>(0);
   const [correctScore, setCorrectScore] = useState<number>(0);
-  const [timer, setTimer] = useState<number>(5);
+  const [timer, setTimer] = useState<number>(60);
   const [wordsIsLoaded, setWordsIsLoaded] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [session, setSession] = useState(0);
 
   const randomPage = () => (Math.floor(Math.random() * (19)));
 
@@ -62,7 +61,7 @@ const SprintGame: any = ({ difficultLvl }: any) => {
   return (
     (words.length !== 0) &&
     <div className={style.container}>
-      {((resultArray.length === 20 || timer === 0) && <ResultPopup resultArray={resultArray} words={words} score={score} session={session} />)}
+      {((resultArray.length === 20 || timer === 0) && <ResultPopup resultArray={resultArray} words={words} score={score} game='Спринт' />)}
       < div className={style.game}>
         <h3 className={style.result}>Текущий результат: {score}</h3>
         <div className={style.game__wrapper}>

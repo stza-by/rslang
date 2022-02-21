@@ -3,7 +3,12 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["plugin:react/recommended", "airbnb", "plugin:react-hooks/recommended", "prettier"],
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "plugin:react-hooks/recommended",
+    "prettier"
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "./tsconfig.json",
@@ -13,7 +18,10 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint"],
+  "plugins": [
+    "react",
+    "@typescript-eslint"
+  ],
   "rules": {
     "linebreak-style": 0,
     "import/extensions": [
@@ -29,7 +37,10 @@
     "react/jsx-filename-extension": [
       2,
       {
-        "extensions": [".ts", ".tsx"]
+        "extensions": [
+          ".ts",
+          ".tsx"
+        ]
       }
     ],
     "react/jsx-props-no-spreading": "off",
@@ -54,18 +65,27 @@
     "import/prefer-default-export": "off",
     "no-unused-vars": "warn",
     "@typescript-eslint/no-unused-vars": "warn",
-    "object-curly-newline": ["error", { "consistent": true }],
+    "object-curly-newline": [
+      "error",
+      {
+        "consistent": true
+      }
+    ],
     "no-debugger": "off",
     "import/no-mutable-exports": "warn",
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-boolean-value": "off",
     "no-param-reassign": "warn",
-    "react/self-closing-comp": "warn"
+    "react/self-closing-comp": "warn",
+    "object-shorthand": "off"
   },
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".ts", ".tsx"]
+        "extensions": [
+          ".ts",
+          ".tsx"
+        ]
       }
     }
   }

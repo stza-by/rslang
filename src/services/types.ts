@@ -69,5 +69,5 @@ export interface IResultPopup {
   resultArray: boolean[],
   words: IQuestions[],
   score: number | null,
-  session: number
+  game: string
 }
