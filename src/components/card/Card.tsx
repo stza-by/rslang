@@ -1,30 +1,62 @@
 import React, { useEffect, useState, FC } from 'react';
 import ReactPaginate from 'react-paginate';
+import { Link } from 'react-router-dom';
 import style from './Card.module.css';
 import { getWordsAPI } from '../../services/dataAPI';
 import { IWord, IRouteProps } from '../../services/types';
 import CardPlayer from '../../pages/textbook/CardPlayer/CardPlayer';
+import { getAllGames } from '../../services/utils';
 
 const Card: FC<IRouteProps> = ({ cardGroupId, groupPage, level }) => {
   const [cards, setCards] = useState<IWord[]>([]);
-  const [pageCount, setPageCount] = useState<number>(0);
+  const [pageNumber, setPageNumber] = useState<number>(groupPage);
+  const games = getAllGames();
 
   const getCardsAssign = (group: number, page: number) => {
     getWordsAPI(group, page).then((result) => {
       setCards(result);
-      setPageCount(30);
     });
   };
+
+  const savePage = () => {
+    localStorage.setItem('textBookPage', JSON.stringify(pageNumber));
+  };
+
+  const loadPage = () => {
+    const page = localStorage.getItem('textBookPage');
+    if (page) setPageNumber(+page);
+  };
+
   useEffect(() => {
-    getCardsAssign(cardGroupId, groupPage);
-  }, [cardGroupId, groupPage, level]);
+    console.log(cardGroupId);
+    console.log(pageNumber);
+    getCardsAssign(cardGroupId, pageNumber);
+    window.addEventListener('beforeunload', savePage);
+    window.addEventListener('load', loadPage);
+    return () => {
+      window.removeEventListener('beforeunload', savePage);
+      window.removeEventListener('load', loadPage);
+    };
+  }, [cardGroupId, level, pageNumber]);
 
   const HandlerPageClick = (event: any) => {
-    getCardsAssign(cardGroupId, event.selected);
+    setPageNumber(event.selected);
   };
 
   return (
     <>
+      <div className='flex p-12 justify-around items-center'>
+        {games.map((game) => (
+          <div key={game.id} className='flex flex-col items-center'>
+            <Link
+              to={game.rout}
+              className='w-20 h-20 bg-cover bg-center bg-no-repeat text-center rounded-full border-2 border-main-white hover:border-main-orange ease-in duration-300'
+              style={{ backgroundImage: `url(${game.img})` }}
+            />
+            <h3 className='text-xl'>{game.name}</h3>
+          </div>
+        ))}
+      </div>
       <div className={style.cards}>
         {cards.map((item) => (
           <div className={`${style.container} card-container-${level}`} key={item.id}>
@@ -58,10 +90,11 @@ const Card: FC<IRouteProps> = ({ cardGroupId, groupPage, level }) => {
         ))}
       </div>
       <ReactPaginate
+        forcePage={pageNumber}
         previousLabel='<<'
         nextLabel='>>'
         breakLabel='...'
-        pageCount={pageCount}
+        pageCount={30}
         marginPagesDisplayed={2}
         pageRangeDisplayed={3}
         onPageChange={HandlerPageClick}
