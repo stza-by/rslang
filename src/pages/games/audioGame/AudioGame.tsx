@@ -19,7 +19,6 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
   const [isAnswered, setIsAnswered] = useState(false);
   const [lastWord, setLastWord] = useState<HTMLButtonElement | null>(null);
   const [resultArray, setResultArray] = useState<boolean[]>([]);
-  const [session, setSession] = useState(0);
 
   const playSound = () => {
     if (!musicIsPlay) {
@@ -104,64 +103,66 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
   if (!wordsIsLoaded) return <div>Загрузка...</div>;
 
   return (
-    <main
-      className={`${style.container} p-3 flex flex-col items-center justify-evenly bg-blue-200 gap-y-5`}>
-      {resultArray.length > 19 && (
-        <ResultPopup resultArray={resultArray} words={wordsResult} score={null} session={session} />
+    <main className={`${style.container} p-3 flex flex-col items-center justify-evenly gap-y-5`}>
+      {resultArray.length === 20 && (
+        <ResultPopup resultArray={resultArray} words={wordsResult} score={null} game='Аудиовызов' />
       )}
-      <div className='flex flex-col items-center'>
-        <div
-          style={
-            isAnswered
-              ? {
-                  backgroundImage: `url("https://rss-words-3.herokuapp.com/${words[wordNumber].image}")`,
-                }
-              : {
-                  backgroundImage: 'none',
-                }
-          }
-          className='flex items-center justify-center relative w-52 h-52 border-2 border-slate-700 bg-orange-200 hover:bg-orange-500 ease-in duration-300 rounded-full bg-center bg-cover bg-no-repeat'>
-          <button
-            className='w-52 h-52 fixed rounded-full cursor-pointer'
-            disabled={musicIsPlay}
-            type='button'
-            onClick={playSound}>
-            {' '}
-          </button>
-          <audio
-            src={`https://react-rslang-project.herokuapp.com/${words[wordNumber].audio}`}
-            autoPlay>
-            <track kind='captions' />
-          </audio>
-          <i
-            className={`${
-              isAnswered ? 'opacity-0 pointer-events-none' : 'opacity-100'
-            } fa-solid fa-podcast text-6xl flex items-center justify-center text-blue-500 leading-4 ease-in duration-300`}
-          />
-        </div>
-        <div
-          className={`${
-            isAnswered ? 'opacity-100' : 'opacity-0 pointer-events-none'
-          } text-xl pt-3`}>
-          {words[wordNumber].word} {words[wordNumber].transcription}{' '}
-          {words[wordNumber].wordTranslate}
-        </div>
-      </div>
-      <ul className='flex'>
-        {answers.map((wordIndex) => (
-          <li key={words[wordIndex].id}>
+      <div className={style.game__wrapper}>
+        <div className='flex flex-col items-center mb-10'>
+          <div
+            style={
+              isAnswered
+                ? {
+                    backgroundImage: `url("https://rss-words-3.herokuapp.com/${words[wordNumber].image}")`,
+                  }
+                : {
+                    backgroundImage: 'none',
+                  }
+            }
+            className='flex items-center justify-center relative w-52 h-52 border-slate-700 bg-white hover:bg-orange-400 ease-in duration-300 rounded-full bg-center bg-cover bg-no-repeat'>
             <button
-              disabled={isAnswered}
+              className={style.btn__audio}
+              disabled={musicIsPlay}
               type='button'
-              value={words[wordIndex].wordTranslate}
-              className='ml-5 mr-5 border-2 border-black p-2 cursor-pointer text-xl hover:text-main-orange ease-in duration-300 hover:bg-main-white rounded-md'
-              onClick={checkAnswer}>
-              {words[wordIndex].wordTranslate}
+              onClick={playSound}>
+              {' '}
             </button>
-          </li>
-        ))}
-      </ul>
-      <button type='button' className='text-2xl ease-in duration-300' onClick={nextWord}>
+            <audio
+              src={`https://react-rslang-project.herokuapp.com/${words[wordNumber].audio}`}
+              autoPlay>
+              <track kind='captions' />
+            </audio>
+            <i
+              className={`${
+                isAnswered ? 'opacity-0 pointer-events-none' : 'opacity-100'
+              } fa-solid fa-podcast text-6xl flex items-center justify-center text-blue-500 leading-4 ease-in duration-300`}
+            />
+          </div>
+          <div
+            className={`${
+              isAnswered ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            } text-xl pt-5`}>
+            {words[wordNumber].word} {words[wordNumber].transcription}{' '}
+            {words[wordNumber].wordTranslate}
+          </div>
+        </div>
+        <ul className={style.list}>
+          {answers.map((wordIndex) => (
+            <li key={words[wordIndex].id}>
+              <button
+                disabled={isAnswered}
+                type='button'
+                value={words[wordIndex].wordTranslate}
+                className='border-2 border-black p-2 cursor-pointer text-m hover:text-main-orange ease-in duration-300 hover:bg-main-white rounded-md'
+                onClick={checkAnswer}>
+                {words[wordIndex].wordTranslate}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <button type='button' className={style.btn} onClick={nextWord}>
         {isAnswered ? 'дальше' : 'пропустить'}
       </button>
     </main>
