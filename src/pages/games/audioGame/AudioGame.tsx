@@ -11,12 +11,12 @@ import { changeQuestions } from '../sprint/SprintGameUtils';
 const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
   const [words, setWords] = useState<Array<IWord>>([]);
   const [wordsResult, setWordsResult] = useState<Array<IQuestions>>([]);
-  const [wordsIsLoaded, setWordsIsLoaded] = useState(false);
+  const [wordsIsLoaded, setWordsIsLoaded] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [wordNumber, setWordNumber] = useState(0);
-  const [musicIsPlay, setMusicIsPlay] = useState(false);
+  const [wordNumber, setWordNumber] = useState<number>(0);
+  const [musicIsPlay, setMusicIsPlay] = useState<boolean>(false);
   const [audio] = useState(new Audio());
-  const [isAnswered, setIsAnswered] = useState(false);
+  const [isAnswered, setIsAnswered] = useState<boolean>(false);
   const [lastWord, setLastWord] = useState<HTMLButtonElement | null>(null);
   const [resultArray, setResultArray] = useState<boolean[]>([]);
 
@@ -28,11 +28,25 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
     }
   };
 
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.key === '1') console.log(1);
-    if (e.key === '2') console.log(2);
-    if (e.key === '3') console.log(3);
-    if (e.key === '4') console.log(4);
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement> | KeyboardEvent) => {
+    if (e.key === '1') {
+      document.getElementById('btn-0')?.click();
+    }
+    if (e.key === '2') {
+      document.getElementById('btn-1')?.click();
+    }
+    if (e.key === '3') {
+      document.getElementById('btn-2')?.click();
+    }
+    if (e.key === '4') {
+      document.getElementById('btn-3')?.click();
+    }
+    if (e.code === 'Space') {
+      document.getElementById('btn-4')?.click();
+    }
+    if (e.code === 'KeyR') {
+      document.getElementById('btn-5')?.click();
+    }
   };
 
   const answers = useMemo(() => getThreeRandomNumbers(wordNumber), [wordNumber]);
@@ -90,12 +104,12 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
     audio.addEventListener('ended', () => {
       setMusicIsPlay(false);
     });
-    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keydown', (e) => handleKeyDown(e));
     return () => {
       audio.removeEventListener('ended', () => {
         setMusicIsPlay(false);
       });
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keydown', (e) => handleKeyDown(e));
     };
   }, [audio, getWords]);
 
@@ -108,6 +122,25 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
         <ResultPopup resultArray={resultArray} words={wordsResult} score={null} game='Аудиовызов' />
       )}
       <div className={style.game__wrapper}>
+        <div className='flex w-full flex-row-reverse relative'>
+          <i
+            className={`fa-solid fa-circle-exclamation flex items-center justify-center text-2xl cursor-pointer ${style.note}`}>
+            <span className={`flex text-xs absolute -top-20 z-10 ${style.tooltip}`}>
+              <div className='flex flex-col pr-3'>
+                <span>R - произнести слово</span>
+                <span>1 - первый вариант ответа</span>
+              </div>
+              <div className='flex flex-col pr-3'>
+                <span>2 - второй вариант ответа</span>
+                <span>3 - третий вариант ответа</span>
+              </div>
+              <div className='flex flex-col pr-3'>
+                <span>4 - четвёртый вариант ответа</span>
+                <span>Space - дальше / пропустить</span>
+              </div>
+            </span>
+          </i>
+        </div>
         <div className='flex flex-col items-center mb-10'>
           <div
             style={
@@ -124,6 +157,7 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
               className={style.btn__audio}
               disabled={musicIsPlay}
               type='button'
+              id='btn-5'
               onClick={playSound}>
               {' '}
             </button>
@@ -147,13 +181,15 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
           </div>
         </div>
         <ul className={style.list}>
-          {answers.map((wordIndex) => (
+          {answers.map((wordIndex, index) => (
             <li key={words[wordIndex].id}>
               <button
+                id={`btn-${index}`}
                 disabled={isAnswered}
                 type='button'
                 value={words[wordIndex].wordTranslate}
                 className='border-2 border-black p-2 cursor-pointer text-m hover:text-main-orange ease-in duration-300 hover:bg-main-white rounded-md'
+                onKeyDown={handleKeyDown}
                 onClick={checkAnswer}>
                 {words[wordIndex].wordTranslate}
               </button>
@@ -161,8 +197,7 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
           ))}
         </ul>
       </div>
-
-      <button type='button' className={style.btn} onClick={nextWord}>
+      <button id='btn-4' type='button' className={style.btn} onClick={nextWord}>
         {isAnswered ? 'дальше' : 'пропустить'}
       </button>
     </main>

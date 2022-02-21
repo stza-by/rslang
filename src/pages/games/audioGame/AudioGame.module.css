@@ -54,6 +54,27 @@
   border-radius: 50%;
 }
 
+.note {
+  color: rgb(177, 177, 177);
+  transition: 0.3s ease-in;
+}
+.note:hover {
+  color: rgb(93, 93, 93);
+}
+
+.tooltip {
+  right: -40px;
+  color: rgb(59, 59, 59);
+  opacity: 0;
+  transition: 0.3s ease-in;
+  pointer-events: none;
+}
+
+.note:hover .tooltip {
+  right: 0;
+  opacity: 1;
+}
+
 @media (max-width: 768px) {
   .game__wrapper {
     width: 450px;
