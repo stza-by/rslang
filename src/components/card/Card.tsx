@@ -9,6 +9,8 @@ import CardPlayer from '../../pages/textbook/CardPlayer/CardPlayer';
 const Card: FC<IRouteProps> = ({cardGroupId, groupPage, level}) => {
     const [cards, setCards] = useState<IWord[]>([]);
     const [pageCount, setPageCount] = useState<number>(0);
+    const [audio] = useState(new Audio());
+    const [audioArray, setAudio] = useState<string[]>([]);
 
     const getCardsAssign = (group: number, page: number) => {
         getWordsAPI(group, page).then((result) => {
@@ -41,7 +43,7 @@ const Card: FC<IRouteProps> = ({cardGroupId, groupPage, level}) => {
                                     </div>
                                 </div>
                                 <div className={style.header}
-                                     style={{backgroundImage: `url("https://rss-words-3.herokuapp.com/${item.image}")`}}>
+                                     style={{backgroundImage: `url("https://rslang-helen-js.herokuapp.com/${item.image}")`}}>
                                     <div className={`${style.overlay} card-overlay-${level}`}>
                                         <div className={style.marks}>
                                             <div className={style.mark_difficult}>
@@ -65,7 +67,7 @@ const Card: FC<IRouteProps> = ({cardGroupId, groupPage, level}) => {
                                                 <span>{item.wordTranslate}</span>
                                                 <span>{item.transcription}</span>
                                                 <div>
-                                                    <CardPlayer url={`https://rss-words-3.herokuapp.com/${item.audio}`}/>
+                                                     <CardPlayer url="https://rslang-helen-js.herokuapp.com/" audioNameList={[item.audio, item.audioMeaning, item.audioExample]}/>
                                                 </div>
                                             </div>
                                         </div>

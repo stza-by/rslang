@@ -1,8 +1,7 @@
 import React from "react";
 import style from './Statistic.module.css';
 
-const Statistic = () => {
-    return (
+const Statistic = () => (
         <div className={style.container}>
             <h2 className='text-4xl font-semibold text-gray-700 mb-7'>Статистика за сегодня</h2>
             <table>
@@ -38,7 +37,6 @@ const Statistic = () => {
                 </tfoot>
             </table>
         </div>
-    )
-}
+    );
 
 export default Statistic;
