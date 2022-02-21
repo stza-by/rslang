@@ -20,6 +20,28 @@
   font-weight: 500;
   font-size: 20px;
 }
+
+.note {
+  color: rgb(177, 177, 177);
+  transition: 0.3s ease-in;
+}
+.note:hover {
+  color: rgb(93, 93, 93);
+}
+
+.tooltip {
+  right: -80px;
+  color: rgb(59, 59, 59);
+  opacity: 0;
+  transition: 0.3s ease-in;
+  pointer-events: none;
+}
+
+.note:hover .tooltip {
+  right: -10px;
+  opacity: 1;
+}
+
 .burger {
   width: 40px;
   height: 40px;
@@ -29,6 +51,10 @@
   justify-content: space-around;
   margin-left: 31px;
 }
+.burger:hover > span {
+  background: #c95039;
+}
+
 .burger span,
 .burger span:before,
 .burger span:after {

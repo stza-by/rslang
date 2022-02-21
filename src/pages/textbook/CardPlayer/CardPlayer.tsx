@@ -9,23 +9,24 @@ export interface ICardPlayerProps {
 const CardPlayer: FC<ICardPlayerProps> = ({url, audioNameList}) => {
 
   const audioList: Array<string> = [];
-  let currentSong = 0;
+  const[audioPlayer] = useState(new Audio());
   Object.values(audioNameList)
       .forEach(
           audioName => audioList.push(url.concat(audioName)));
 
-  const playAudio = () => {
-      console.log("I'm here")
-      const audioPlayer = new Audio();
+  const playAudio = (startingSong: number) => {
+      let currentSong = startingSong;
       audioPlayer.src=audioList[currentSong];
       audioPlayer.autoplay = true;
-      const nextAudio = () => {
+      audioPlayer.addEventListener('ended', () =>
+      {
           currentSong += 1;
-          playAudio();
-      };
-      audioPlayer.addEventListener('ended', nextAudio);
+          playAudio(currentSong);
+      });
   }
 
-  return <PlayerButton buttonName={'\u25B6'} onClick={playAudio} />;
+  return <PlayerButton buttonName={'\u25B6'} onClick={() => {
+      playAudio(0)
+  }} />;
 };
 export default CardPlayer;

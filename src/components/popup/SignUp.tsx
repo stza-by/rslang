@@ -5,6 +5,7 @@ import { ISignUpUser } from '../../services/types';
 
 const SignUp: React.FC = () => {
   const [emailIsCorrect, setEmailIsCorrect] = useState(true);
+  const [signUpIsDisabled, setSignUpIsDisabled] = useState(false);
 
   const {
     register,
@@ -16,6 +17,7 @@ const SignUp: React.FC = () => {
   });
 
   const onSubmit: SubmitHandler<ISignUpUser> = async (data) => {
+    setSignUpIsDisabled(true);
     const res = await userSignUpAPI(data).catch();
     if (res) {
       setEmailIsCorrect(true);
@@ -23,6 +25,7 @@ const SignUp: React.FC = () => {
     } else {
       setEmailIsCorrect(false);
     }
+    setSignUpIsDisabled(false);
   };
 
   return (
@@ -36,7 +39,11 @@ const SignUp: React.FC = () => {
             required: 'Поле обязательно для заполнения!',
             minLength: {
               value: 3,
-              message: 'Введите больше 2 символов',
+              message: 'Введите от 3 до 10 символов',
+            },
+            maxLength: {
+              value: 10,
+              message: 'Введите от 3 до 10 символов',
             },
           })}
           className='p-2 w-full border-2 border-gray-600'
@@ -55,6 +62,10 @@ const SignUp: React.FC = () => {
                 /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
               message: 'invalid email address',
             },
+            maxLength: {
+              value: 25,
+              message: 'Слишком большое название'
+            }
           })}
           className='p-2 w-full border-2 border-gray-600'
           type='email'
@@ -85,6 +96,7 @@ const SignUp: React.FC = () => {
           type='submit'
           className='p-2 border-2 border-white bg-yellow-400 w-full text-lg font-bold hover:border-gray-600 cursor-pointer'
           value='Создать аккаунт'
+          disabled={signUpIsDisabled}
         />
       </form>
     </>

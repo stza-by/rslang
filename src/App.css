@@ -76,3 +76,11 @@ body {
 .card-overlay-level6 {
   background: linear-gradient(transparent 30%, rgb(251, 113, 133));
 }
+
+div.active-dot {
+  background-color: #059900;
+  border: 1px solid #059900;
+}
+#levelsPopup.close-popup {
+  display: none;
+}
