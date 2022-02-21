@@ -68,7 +68,7 @@ const SprintGame: any = ({ difficultLvl }: any) => {
   return (
     (words.length !== 0) &&
     <div className={style.container}>
-      {((resultArray.length === 20 || timer === 0) && <ResultPopup resultArray={resultArray} words={words} score={score} game='Спринт' />)}
+      {((resultArray.length === 20 || timer === 0) && <ResultPopup resultArray={resultArray} words={words} score={score} game='Спринт' setTimer={setTimer} />)}
       < div className={style.game}>
         <h3 className={style.result}>Текущий результат: {score}</h3>
         <div className={style.game__wrapper}>

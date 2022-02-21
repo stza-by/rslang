@@ -99,7 +99,7 @@ export const changeQuestions = (array: IWord[]) => {
 export const timerFunc = (timer: number, setTimer: any) => {
   setTimeout(() => {
     if (timer !== 0) {
-      setTimer(timer -= 1)
+      setTimer(timer - 1)
     }
   }, 1000)
 }
@@ -110,11 +110,3 @@ export const dotsActive = (style: any, correctScore: number) => {
     if (i >= correctScore) el.classList.remove('active-dot');
   })
 }
-
-// export const counterSession = (session: number, setSession: any, resultArray: boolean[]) => {
-//   if (resultArray[resultArray.length - 1] === true) {
-//     setSession(session+=1);
-//   } else {
-//     setSession(0);
-//   }
-// }

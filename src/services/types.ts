@@ -69,5 +69,24 @@ export interface IResultPopup {
   resultArray: boolean[],
   words: IQuestions[],
   score: number | null,
-  game: string
+  game: string,
+  setTimer?: React.Dispatch<React.SetStateAction<number>>
+}
+export interface IStatistic {
+  id: string,
+  learnedWords: number,
+  optional: {
+    sprint: {
+      date: string,
+      percentCorrect: number,
+      game: string,
+      session: number,
+    },
+    audioGame: {
+      date: string,
+      percentCorrect: number,
+      game: string,
+      session: number,
+    },
+  }
 }

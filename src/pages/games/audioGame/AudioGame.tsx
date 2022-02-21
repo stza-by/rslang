@@ -113,11 +113,11 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
             style={
               isAnswered
                 ? {
-                    backgroundImage: `url("https://rss-words-3.herokuapp.com/${words[wordNumber].image}")`,
-                  }
+                  backgroundImage: `url("https://rss-words-3.herokuapp.com/${words[wordNumber].image}")`,
+                }
                 : {
-                    backgroundImage: 'none',
-                  }
+                  backgroundImage: 'none',
+                }
             }
             className='flex items-center justify-center relative w-52 h-52 border-slate-700 bg-white hover:bg-orange-400 ease-in duration-300 rounded-full bg-center bg-cover bg-no-repeat'>
             <button
@@ -133,15 +133,13 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
               <track kind='captions' />
             </audio>
             <i
-              className={`${
-                isAnswered ? 'opacity-0 pointer-events-none' : 'opacity-100'
-              } fa-solid fa-podcast text-6xl flex items-center justify-center text-blue-500 leading-4 ease-in duration-300`}
+              className={`${isAnswered ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                } fa-solid fa-podcast text-6xl flex items-center justify-center text-blue-500 leading-4 ease-in duration-300`}
             />
           </div>
           <div
-            className={`${
-              isAnswered ? 'opacity-100' : 'opacity-0 pointer-events-none'
-            } text-xl pt-5`}>
+            className={`${isAnswered ? 'opacity-100' : 'opacity-0 pointer-events-none'
+              } text-xl pt-5`}>
             {words[wordNumber].word} {words[wordNumber].transcription}{' '}
             {words[wordNumber].wordTranslate}
           </div>

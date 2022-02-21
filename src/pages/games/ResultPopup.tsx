@@ -1,16 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../components/popup/UserContext';
-import { setUserStatistic } from '../../services/dataAPI';
-import { IResultPopup } from '../../services/types';
+import { getUserStatistic, setUserStatistic } from '../../services/dataAPI';
+import { IResultPopup, IStatistic } from '../../services/types';
 import style from './MiniGames.module.css';
 
-const ResultPopup: React.FC<IResultPopup> = ({ resultArray, words, score, game }) => {
+const ResultPopup: React.FC<IResultPopup> = ({ resultArray, words, score, game, setTimer }) => {
   const [audio] = useState(new Audio());
   const { user } = useContext(UserContext);
   const learnedWords = resultArray.filter((el) => el === true).length;
   let session = 0;
   let mainSession = 0;
+  let oldStatistic = {} as any;
   const onClick = (url: string) => {
     audio.src = `https://react-rslang-project.herokuapp.com/${url}`;
     audio.play();
@@ -29,16 +30,47 @@ const ResultPopup: React.FC<IResultPopup> = ({ resultArray, words, score, game }
   if (mainSession !== 0) {
     mainSession += 1;
   }
-  const statistic = () => ({
-    date: new Date(),
-    percentCorrect: Math.floor((learnedWords / 20) * 100),
-    game: game,
-    session: mainSession,
-  });
-  useEffect(() => {
-    if (user) setUserStatistic(user.id, learnedWords, statistic());
-  }, []);
 
+  const statistic = () => {
+    let optional = {};
+    if (game === 'Спринт') {
+      console.log('sssd', oldStatistic)
+      const secondGame = oldStatistic.audioGame;
+      optional = {
+        sprint: {
+          date: new Date(),
+          percentCorrect: Math.floor((learnedWords / 20) * 100),
+          game: 'Спринт',
+          session: mainSession,
+        },
+        audioGame: secondGame
+      }
+    } else {
+      const secondGame = oldStatistic.sprint;
+      console.log('sssd', oldStatistic)
+      optional = {
+        sprint: secondGame,
+        audioGame: {
+          date: new Date(),
+          percentCorrect: Math.floor((learnedWords / 20) * 100),
+          game: 'Аудиовызов',
+          session: mainSession,
+        }
+      }
+
+    }
+    return optional
+  };
+  useEffect(() => {
+    if (setTimer) setTimer(0);
+    if (user) {
+      getUserStatistic(user.id).then(result => {
+        oldStatistic = result.optional;
+      })
+    };
+    if (user) setUserStatistic(user.id, learnedWords, statistic()).then(() => console.log());
+  }, []);
+  console.log('ssdasdsadasd', oldStatistic);
   return (
     <div className={style.popup__shadow}>
       <div className={style.popup}>
