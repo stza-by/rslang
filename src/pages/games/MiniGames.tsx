@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { getAllGames } from '../../services/utils';
 import Game from './Game';
 import style from './MiniGames.module.css';
@@ -14,6 +14,10 @@ const MiniGames: React.FC<IMiniGamesProps> = ({ difficultLvl, setDifficultLvl })
   const isLvlSelected = (val: string) => difficultLvl === val;
 
   const changeDifficult = (e: React.ChangeEvent<HTMLInputElement>): void => setDifficultLvl(e.target.value);
+
+  useEffect(() => {
+    localStorage.removeItem('gamesParams');
+  }, []);
 
   return (
     <div className={`flex flex-col justify-evenly ${style.container}`}>

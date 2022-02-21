@@ -21,7 +21,14 @@ const SprintGame: any = ({ difficultLvl }: any) => {
   const randomPage = () => (Math.floor(Math.random() * (19)));
 
   const getCards = useCallback(() => {
-    getWordsAPI(+difficultLvl, randomPage()).then((result) => {
+    let wordsParams;
+    const textBookParams = localStorage.getItem('gamesParams');
+    if (textBookParams) {
+      wordsParams = JSON.parse(textBookParams);
+    } else {
+      wordsParams = [+difficultLvl, randomPage()];
+    }
+    getWordsAPI(wordsParams[0], wordsParams[1]).then((result) => {
       setBackWords(result);
       setWords(changeQuestions(result));
       setWordsIsLoaded(true);

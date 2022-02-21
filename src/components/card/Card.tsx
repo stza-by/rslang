@@ -1,4 +1,4 @@
-import React, { useEffect, useState, FC } from 'react';
+import React, { useEffect, useState, FC, useCallback } from 'react';
 import ReactPaginate from 'react-paginate';
 import { Link } from 'react-router-dom';
 import style from './Card.module.css';
@@ -10,17 +10,23 @@ import { getAllGames } from '../../services/utils';
 const Card: FC<IRouteProps> = ({ cardGroupId, groupPage, level }) => {
   const [cards, setCards] = useState<IWord[]>([]);
   const [pageParams, setPageParams] = useState<Array<number>>([cardGroupId, groupPage]);
+  const [cardsIsLoaded, setCardsIsLoaded] = useState(false);
   const games = getAllGames();
 
   const getCardsAssign = (group: number, page: number) => {
     getWordsAPI(group, page).then((result) => {
       setCards(result);
+      setCardsIsLoaded(true);
     });
   };
 
-  const savePage = () => {
+  const paramsForGames = () => {
+    localStorage.setItem('gamesParams', JSON.stringify(pageParams));
+  }
+
+  const savePage = useCallback(() => {
     localStorage.setItem('textBookParams', JSON.stringify(pageParams));
-  };
+  }, [pageParams]);
 
   const loadPage = () => {
     const page = localStorage.getItem('textBookParams');
@@ -28,18 +34,22 @@ const Card: FC<IRouteProps> = ({ cardGroupId, groupPage, level }) => {
   };
 
   useEffect(() => {
+    console.log(pageParams);
     getCardsAssign(pageParams[0], pageParams[1]);
     window.addEventListener('beforeunload', savePage);
     window.addEventListener('load', loadPage);
+    paramsForGames();
     return () => {
       window.removeEventListener('beforeunload', savePage);
       window.removeEventListener('load', loadPage);
     };
-  }, [level, pageParams]);
+  }, [level, pageParams, savePage]);
 
   const HandlerPageClick = (event: any) => {
     setPageParams([pageParams[0], event.selected]);
   };
+
+  if (!cardsIsLoaded) return <div className='flex justify-center text-2xl'>Загрузка...</div>;
 
   return (
     <>

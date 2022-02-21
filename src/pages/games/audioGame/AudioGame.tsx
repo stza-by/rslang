@@ -66,7 +66,14 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
 
   const getWords = useCallback(() => {
     const randomPage = getRandomPage();
-    getWordsAPI(+difficultLvl, randomPage).then(
+    let wordsParams;
+    const textBookParams = localStorage.getItem('gamesParams');
+    if (textBookParams) {
+      wordsParams = JSON.parse(textBookParams);
+    } else {
+      wordsParams = [+difficultLvl, randomPage];
+    }
+    getWordsAPI(wordsParams[0], wordsParams[1]).then(
       (res) => {
         setWords(res);
         setWordsIsLoaded(true);
