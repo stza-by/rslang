@@ -9,7 +9,7 @@ import { getAllGames } from '../../services/utils';
 
 const Card: FC<IRouteProps> = ({ cardGroupId, groupPage, level }) => {
   const [cards, setCards] = useState<IWord[]>([]);
-  const [pageNumber, setPageNumber] = useState<number>(groupPage);
+  const [pageParams, setPageParams] = useState<Array<number>>([cardGroupId, groupPage]);
   const games = getAllGames();
 
   const getCardsAssign = (group: number, page: number) => {
@@ -19,28 +19,26 @@ const Card: FC<IRouteProps> = ({ cardGroupId, groupPage, level }) => {
   };
 
   const savePage = () => {
-    localStorage.setItem('textBookPage', JSON.stringify(pageNumber));
+    localStorage.setItem('textBookParams', JSON.stringify(pageParams));
   };
 
   const loadPage = () => {
-    const page = localStorage.getItem('textBookPage');
-    if (page) setPageNumber(+page);
+    const page = localStorage.getItem('textBookParams');
+    if (page) setPageParams(JSON.parse(page));
   };
 
   useEffect(() => {
-    console.log(cardGroupId);
-    console.log(pageNumber);
-    getCardsAssign(cardGroupId, pageNumber);
+    getCardsAssign(pageParams[0], pageParams[1]);
     window.addEventListener('beforeunload', savePage);
     window.addEventListener('load', loadPage);
     return () => {
       window.removeEventListener('beforeunload', savePage);
       window.removeEventListener('load', loadPage);
     };
-  }, [cardGroupId, level, pageNumber]);
+  }, [level, pageParams]);
 
   const HandlerPageClick = (event: any) => {
-    setPageNumber(event.selected);
+    setPageParams([pageParams[0], event.selected]);
   };
 
   return (
@@ -90,7 +88,7 @@ const Card: FC<IRouteProps> = ({ cardGroupId, groupPage, level }) => {
         ))}
       </div>
       <ReactPaginate
-        forcePage={pageNumber}
+        forcePage={pageParams[1]}
         previousLabel='<<'
         nextLabel='>>'
         breakLabel='...'

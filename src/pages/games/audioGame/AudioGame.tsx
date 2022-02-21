@@ -43,11 +43,11 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
     if (target.value === words[wordNumber].wordTranslate) {
       audio.src = trueAnswer;
       target.style.color = 'green';
-      resultArray.push(true);
+      setResultArray([...resultArray, true]);
     } else {
       audio.src = falseAnswer;
       target.style.color = 'red';
-      resultArray.push(false);
+      setResultArray([...resultArray, false]);
     }
     audio.play();
     setLastWord(target);
@@ -55,8 +55,11 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
   };
 
   const nextWord = () => {
-    if (wordNumber < words.length - 1) setWordNumber(wordNumber + 1);
-    if (isAnswered === false) resultArray.push(false);
+    if (wordNumber < words.length - 1) {
+      setWordNumber(wordNumber + 1);
+      if (!isAnswered) setResultArray([...resultArray, false]);
+    }
+    if (wordNumber === 19 && !isAnswered) setResultArray([...resultArray, false]);
     if (lastWord) lastWord.style.color = 'black';
     setIsAnswered(false);
   };
@@ -96,17 +99,19 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
   return (
     <main
       className={`${style.container} p-3 flex flex-col items-center justify-evenly bg-blue-200 gap-y-5`}>
-      {((resultArray.length === 20) && <ResultPopup resultArray={resultArray} words={wordsResult} score={null} session={session} />)}
+      {resultArray.length > 19 && (
+        <ResultPopup resultArray={resultArray} words={wordsResult} score={null} session={session} />
+      )}
       <div className='flex flex-col items-center'>
         <div
           style={
             isAnswered
               ? {
-                backgroundImage: `url("https://rss-words-3.herokuapp.com/${words[wordNumber].image}")`,
-              }
+                  backgroundImage: `url("https://rss-words-3.herokuapp.com/${words[wordNumber].image}")`,
+                }
               : {
-                backgroundImage: 'none',
-              }
+                  backgroundImage: 'none',
+                }
           }
           className='flex items-center justify-center relative w-52 h-52 border-2 border-slate-700 bg-orange-200 hover:bg-orange-500 ease-in duration-300 rounded-full bg-center bg-cover bg-no-repeat'>
           <button
@@ -122,14 +127,17 @@ const AudioGame: React.FC<IGameProps> = ({ difficultLvl }) => {
             <track kind='captions' />
           </audio>
           <i
-            className={`${isAnswered ? 'opacity-0 pointer-events-none' : 'opacity-100'
-              } fa-solid fa-podcast text-6xl flex items-center justify-center text-blue-500 leading-4 ease-in duration-300`}
+            className={`${
+              isAnswered ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            } fa-solid fa-podcast text-6xl flex items-center justify-center text-blue-500 leading-4 ease-in duration-300`}
           />
         </div>
         <div
-          className={`${isAnswered ? 'opacity-100' : 'opacity-0 pointer-events-none'
-            } text-xl pt-3`}>
-          {words[wordNumber].word} {words[wordNumber].transcription} {words[wordNumber].wordTranslate}
+          className={`${
+            isAnswered ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          } text-xl pt-3`}>
+          {words[wordNumber].word} {words[wordNumber].transcription}{' '}
+          {words[wordNumber].wordTranslate}
         </div>
       </div>
       <ul className='flex'>
