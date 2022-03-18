@@ -1,5 +1,11 @@
 ## RS LANG
 
-[API REPOSITORY](https://github.com/stza-by/react-rslang-be)
+Основыне Технологии:
 
-
+- typescript
+- react
+- react-router
+- react-hook-form
+- tailwindcss
+- module css
+- eslint
